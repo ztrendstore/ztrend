@@ -1,5 +1,93 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Premium Store · Shopora</title><link rel="stylesheet" href="css/style.css"></head><body><header class="topbar"><div class="container" style="display:flex;align-items:center;width:100%;gap:22px"><a class="brand" href="index.html">SHOP<span>ORA</span></a><div class="top-actions"><a class="icon-btn" href="account/profile.html">Account</a><a class="icon-btn" href="cart.html">Cart <span class="badge" data-cart-count>0</span></a></div></div></header>
-<div class="search-row"><div class="container"><div class="searchbox"><span>⌕</span><input data-search placeholder="Search products, brands & categories..."><span class="muted">Enter</span></div></div></div><main>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Premium Store · Shopora</title><link rel="stylesheet" href="css/style.css"></head><body>
+  <header class="site-header">
+
+  <!-- Desktop / Main Header -->
+  <div class="header-main">
+
+    <a class="site-logo" href="index.html">
+      SHOP<span>ORA</span>
+    </a>
+
+    <nav class="desktop-nav">
+      <a href="index.html">Home</a>
+      <a href="#products">Women</a>
+      <a href="#products">Men</a>
+      <a href="#products">Kids</a>
+      <a href="#categories">Accessories</a>
+      <a href="#products">Collection</a>
+      <a href="#products">Brands</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="header-icon search-trigger" type="button" aria-label="Search">
+        ⌕
+      </button>
+
+      <a class="header-icon" href="account/profile.html" aria-label="Account">
+        ♙
+      </a>
+
+      <a class="header-icon" href="account/wishlist.html" aria-label="Wishlist">
+        ♡
+      </a>
+
+      <a class="header-icon cart-icon" href="cart.html" aria-label="Cart">
+        🛒
+        <span class="header-cart-count" data-cart-count>0</span>
+      </a>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Open menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+
+    <div class="mobile-menu-head">
+      <strong>MENU</strong>
+      <button id="mobileMenuClose" type="button">×</button>
+    </div>
+
+    <nav class="mobile-nav">
+      <a href="index.html">Home</a>
+      <a href="#products">Shop</a>
+      <a href="#categories">Categories</a>
+      <a href="#products">Women</a>
+      <a href="#products">Men</a>
+      <a href="#products">Kids</a>
+      <a href="#categories">Accessories</a>
+      <a href="#products">Collection</a>
+      <a href="#products">Brands</a>
+      <a href="account/wishlist.html">Wishlist</a>
+      <a href="account/profile.html">Account</a>
+      <a href="cart.html">Cart</a>
+    </nav>
+
+  </div>
+
+  <!-- Search Bar -->
+  <div class="site-search">
+    <div class="search-container">
+      <div class="search-box">
+        <span class="search-symbol">⌕</span>
+        <input
+          type="text"
+          data-search
+          placeholder="Search products, brands & categories..."
+        >
+        <span class="search-enter">ENTER</span>
+      </div>
+    </div>
+  </div>
+
+</header>
+  <main>
 <section class="hero"><div class="container hero-grid"><div class="hero-main"><div class="kicker">Curated commerce</div><h1>Shop better.<br><span style="color:var(--accent)">Live sharper.</span></h1><p>A premium storefront with a clean buying journey, transparent pricing and a management system built to grow with your store.</p><div class="hero-actions"><a class="primary" href="#products">Explore products</a><a class="secondary" href="account/orders.html">Track an order</a></div></div><div class="hero-side"><div class="stat-card"><div><div class="muted">Fast dispatch</div><strong>24–48h</strong></div><span>↗</span></div><div class="stat-card"><div><div class="muted">Secure checkout</div><strong>100%</strong></div><span>✓</span></div><div class="stat-card"><div><div class="muted">Curated range</div><strong>8+</strong></div><span>✦</span></div></div></div></section>
 <section class="section"><div class="container"><div class="section-head"><div><h2>Shop by category</h2><p>Explore the collection.</p></div></div><div class="features" id="categories"></div></div></section>
 <section class="section" id="products"><div class="container"><div class="section-head"><div><h2>Featured products</h2><p>Prices, stock and discounts are managed from Admin.</p></div><a class="secondary" href="#products">View all</a></div><div class="grid" id="product-grid"></div></div></section>
