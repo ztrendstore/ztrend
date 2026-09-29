@@ -35,3 +35,37 @@ function renderOrderDetails(){adminGuard();let d=db(),id=new URLSearchParams(loc
 function printInvoice(o){let w=window.open('','_blank');w.document.write(`<html><head><title>${o.id}</title><style>body{font-family:Arial;padding:40px}table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid #ddd;text-align:left}</style></head><body><h1>SHOPORA</h1><p>Invoice: ${o.id}<br>${o.date}</p><h3>Bill to</h3><p>${o.address.name}<br>${o.address.house}, ${o.address.area}<br>${o.address.city}, ${o.address.state} - ${o.address.pin}<br>${o.address.phone}</p><table><tr><th>Product</th><th>Qty</th><th>Price</th><th>Total</th></tr>${o.items.map(p=>`<tr><td>${p.name}</td><td>${p.qty}</td><td>${money(p.price)}</td><td>${money(p.price*p.qty)}</td></tr>`).join('')}</table><h2>Total: ${money(o.total)}</h2><button onclick="print()">Print / Save PDF</button></body></html>`);w.document.close()}
 function renderAccount(){let d=db(),name=qs('#profile-name');if(name)name.textContent=d.user.name;let e=qs('#profile-email');if(e)e.textContent=d.user.email;let orders=qs('#my-orders');if(orders)orders.innerHTML=d.orders.map(o=>`<div class="panel row"><div><b>${o.id}</b><div class="muted">${o.date} · ${money(o.total)}</div></div><span class="status ok">${o.status}</span></div>`).join('')||'<div class="notice">No orders yet.</div>';let ad=qs('#my-addresses');if(ad)ad.innerHTML=d.addresses.map(a=>`<div class="address"><b>${a.type}</b><div>${a.name} · ${a.phone}</div><div>${a.house}, ${a.area}, ${a.city}, ${a.state} - ${a.pin}</div></div>`).join('')||'<div class="notice">No saved addresses.</div>'}
 document.addEventListener('DOMContentLoaded',()=>{initCommon();renderHome();initCart();initCheckout();if(document.body.dataset.admin==='1')initAdmin();if(document.body.dataset.productform==='1')initProductForm();if(document.body.dataset.orders==='1')renderOrders();if(document.body.dataset.orderdetails==='1')renderOrderDetails();if(document.body.dataset.account==='1')renderAccount()});
+/* =========================================
+   MOBILE MENU
+========================================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const menuBtn = document.getElementById("mobileMenuBtn");
+  const menu = document.getElementById("mobileMenu");
+  const closeBtn = document.getElementById("mobileMenuClose");
+
+  if (menuBtn && menu) {
+    menuBtn.addEventListener("click", function () {
+      menu.classList.add("active");
+      document.body.style.overflow = "hidden";
+    });
+  }
+
+  if (closeBtn && menu) {
+    closeBtn.addEventListener("click", function () {
+      menu.classList.remove("active");
+      document.body.style.overflow = "";
+    });
+  }
+
+  if (menu) {
+    menu.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", function () {
+        menu.classList.remove("active");
+        document.body.style.overflow = "";
+      });
+    });
+  }
+
+});
