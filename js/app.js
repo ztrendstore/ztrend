@@ -121,6 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.body.style.overflow = "hidden";
 
     applyDarkMenu();
+     document.querySelector(".site-search")?.style.setProperty("z-index", "-1", "important");
 
   });
 
@@ -136,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
       menu.classList.remove("active");
 
       document.body.style.overflow = "";
-
+document.querySelector(".site-search")?.style.removeProperty("z-index");
     });
 
   }
