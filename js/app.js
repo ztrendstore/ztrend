@@ -36,88 +36,127 @@ function printInvoice(o){let w=window.open('','_blank');w.document.write(`<html>
 function renderAccount(){let d=db(),name=qs('#profile-name');if(name)name.textContent=d.user.name;let e=qs('#profile-email');if(e)e.textContent=d.user.email;let orders=qs('#my-orders');if(orders)orders.innerHTML=d.orders.map(o=>`<div class="panel row"><div><b>${o.id}</b><div class="muted">${o.date} · ${money(o.total)}</div></div><span class="status ok">${o.status}</span></div>`).join('')||'<div class="notice">No orders yet.</div>';let ad=qs('#my-addresses');if(ad)ad.innerHTML=d.addresses.map(a=>`<div class="address"><b>${a.type}</b><div>${a.name} · ${a.phone}</div><div>${a.house}, ${a.area}, ${a.city}, ${a.state} - ${a.pin}</div></div>`).join('')||'<div class="notice">No saved addresses.</div>'}
 document.addEventListener('DOMContentLoaded',()=>{initCommon();renderHome();initCart();initCheckout();if(document.body.dataset.admin==='1')initAdmin();if(document.body.dataset.productform==='1')initProductForm();if(document.body.dataset.orders==='1')renderOrders();if(document.body.dataset.orderdetails==='1')renderOrderDetails();if(document.body.dataset.account==='1')renderAccount()});
 /* =========================================
-   MOBILE MENU + HEADER SCROLL
+   MOBILE MENU - FINAL
 ========================================= */
 
 document.addEventListener("DOMContentLoaded", function () {
-
-  /* ---------- MOBILE MENU ---------- */
 
   const menuBtn = document.getElementById("mobileMenuBtn");
   const menu = document.getElementById("mobileMenu");
   const closeBtn = document.getElementById("mobileMenuClose");
 
-  if (menuBtn && menu) {
+  if (!menuBtn || !menu) return;
 
-    menuBtn.addEventListener("click", function (e) {
-      e.preventDefault();
-      e.stopPropagation();
 
-      menu.classList.add("active");
-      document.body.style.overflow = "hidden";
+  function applyDarkMenu() {
+
+    menu.style.setProperty("background", "#090909", "important");
+    menu.style.setProperty("color", "#ffffff", "important");
+
+    const head = menu.querySelector(".mobile-menu-head");
+
+    if (head) {
+      head.style.setProperty("background", "#090909", "important");
+      head.style.setProperty("color", "#ffffff", "important");
+      head.style.setProperty("border-bottom", "1px solid #292929", "important");
+    }
+
+    const title = menu.querySelector(".mobile-menu-head strong");
+
+    if (title) {
+      title.style.setProperty("color", "#ffffff", "important");
+    }
+
+    if (closeBtn) {
+      closeBtn.style.setProperty("color", "#ffffff", "important");
+      closeBtn.style.setProperty("background", "transparent", "important");
+    }
+
+    const nav = menu.querySelector(".mobile-nav");
+
+    if (nav) {
+      nav.style.setProperty("background", "#090909", "important");
+    }
+
+    const links = menu.querySelectorAll(".mobile-nav a");
+
+    links.forEach(function (link) {
+
+      link.style.setProperty("color", "#f5f5f5", "important");
+      link.style.setProperty("background", "transparent", "important");
+      link.style.setProperty("border-bottom", "1px solid #242424", "important");
+      link.style.setProperty("padding", "12px 4px", "important");
+      link.style.setProperty("font-weight", "600", "important");
+      link.style.setProperty("font-size", "16px", "important");
+      link.style.setProperty("line-height", "1.2", "important");
+
     });
 
+
+    /* Logout */
+
+    const logout = document.getElementById("mobileLogout");
+
+    if (logout) {
+      logout.style.setProperty("color", "#ff3b3b", "important");
+      logout.style.setProperty("background", "#160909", "important");
+      logout.style.setProperty("border", "1px solid #4a1717", "important");
+      logout.style.setProperty("border-radius", "6px", "important");
+      logout.style.setProperty("padding", "13px 12px", "important");
+      logout.style.setProperty("margin-top", "12px", "important");
+      logout.style.setProperty("font-weight", "700", "important");
+    }
   }
 
-  if (closeBtn && menu) {
+
+  /* OPEN */
+
+  menuBtn.addEventListener("click", function (e) {
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    menu.classList.add("active");
+
+    document.body.style.overflow = "hidden";
+
+    applyDarkMenu();
+
+  });
+
+
+  /* CLOSE */
+
+  if (closeBtn) {
 
     closeBtn.addEventListener("click", function (e) {
+
       e.preventDefault();
 
       menu.classList.remove("active");
+
       document.body.style.overflow = "";
-    });
-
-  }
-
-  /* Close menu after selecting an option */
-
-  if (menu) {
-
-    const mobileLinks = menu.querySelectorAll(".mobile-nav a");
-
-    mobileLinks.forEach(function (link) {
-
-      link.addEventListener("click", function () {
-        menu.classList.remove("active");
-        document.body.style.overflow = "";
-      });
 
     });
 
   }
 
 
-  /* ---------- HEADER AUTO HIDE ---------- */
+  /* CLOSE AFTER LINK */
 
-  const header = document.querySelector(".site-header");
+  menu.querySelectorAll(".mobile-nav a").forEach(function (link) {
 
-  if (!header) return;
+    link.addEventListener("click", function () {
 
-  let lastScrollY = window.scrollY;
+      if (link.id === "mobileLogout") {
+        return;
+      }
 
-  window.addEventListener("scroll", function () {
+      menu.classList.remove("active");
 
-    const currentScrollY = window.scrollY;
+      document.body.style.overflow = "";
 
-    /* At very top */
-    if (currentScrollY <= 10) {
-      header.classList.remove("header-hidden");
-      lastScrollY = currentScrollY;
-      return;
-    }
-
-    /* Scrolling DOWN */
-    if (currentScrollY > lastScrollY + 5) {
-      header.classList.add("header-hidden");
-    }
-
-    /* Scrolling UP */
-    else if (currentScrollY < lastScrollY - 5) {
-      header.classList.remove("header-hidden");
-    }
-
-    lastScrollY = currentScrollY;
+    });
 
   });
 
