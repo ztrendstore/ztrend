@@ -354,3 +354,96 @@ a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}b
     font-size: 22px;
   }
 }
+/* =========================================
+   HEADER FINAL POLISH
+========================================= */
+
+/* Header hides when scrolling down */
+.site-header {
+  transition: transform .35s ease;
+}
+
+.site-header.header-hidden {
+  transform: translateY(-100%);
+}
+
+/* Search stays visible when main header hides */
+.site-search {
+  position: relative;
+  z-index: 1001;
+}
+
+/* Transparent search area */
+.site-search {
+  background: transparent;
+}
+
+.search-container {
+  background: transparent;
+}
+
+.search-box {
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, .28);
+}
+
+.search-box:focus-within {
+  background: rgba(255, 255, 255, .35);
+  border-color: #111;
+}
+
+/* Proper header icons */
+.header-icon svg {
+  width: 21px;
+  height: 21px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.search-trigger svg {
+  width: 22px;
+  height: 22px;
+}
+
+.cart-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* Navigation/category text */
+.desktop-nav a {
+  font-weight: 600;
+  transition:
+    color .2s ease,
+    opacity .2s ease;
+}
+
+.desktop-nav a:hover {
+  color: #2e8b57;
+  opacity: 1;
+}
+
+.desktop-nav a::after {
+  background: #2e8b57;
+}
+
+/* Mobile navigation */
+.mobile-nav {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.mobile-nav a {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: #111 !important;
+  font-weight: 600;
+}
+
+.mobile-nav a:hover {
+  color: #2e8b57 !important;
+}
