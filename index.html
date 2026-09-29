@@ -19,23 +19,37 @@
     </nav>
 
     <div class="header-actions">
-      <button class="header-icon search-trigger" type="button" aria-label="Search">
-        ⌕
-      </button>
 
-      <a class="header-icon" href="account/profile.html" aria-label="Account">
-        ♙
-      </a>
+  <button class="header-icon search-trigger" type="button" aria-label="Search">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="11" cy="11" r="6.5"></circle>
+      <path d="M16 16l5 5"></path>
+    </svg>
+  </button>
 
-      <a class="header-icon" href="account/wishlist.html" aria-label="Wishlist">
-        ♡
-      </a>
+  <a class="header-icon" href="account/profile.html" aria-label="Account">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="8" r="3.5"></circle>
+      <path d="M5 21c.7-4 3-6 7-6s6.3 2 7 6"></path>
+    </svg>
+  </a>
 
-      <a class="header-icon cart-icon" href="cart.html" aria-label="Cart">
-        🛒
-        <span class="header-cart-count" data-cart-count>0</span>
-      </a>
-    </div>
+  <a class="header-icon" href="account/wishlist.html" aria-label="Wishlist">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M20.8 8.7c0 5.2-8.8 10-8.8 10s-8.8-4.8-8.8-10A4.7 4.7 0 0 1 12 5.6a4.7 4.7 0 0 1 8.8 3.1Z"></path>
+    </svg>
+  </a>
+
+  <a class="header-icon cart-icon" href="cart.html" aria-label="Cart">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M3 4h2l2 12h10l3-9H6"></path>
+      <circle cx="9" cy="20" r="1"></circle>
+      <circle cx="17" cy="20" r="1"></circle>
+    </svg>
+    <span class="header-cart-count" data-cart-count>0</span>
+  </a>
+
+</div>
 
     <!-- Mobile Menu Button -->
     <button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Open menu">
