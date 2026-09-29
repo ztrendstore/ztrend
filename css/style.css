@@ -618,3 +618,91 @@ a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}b
     display: none !important;
   }
 }
+/* =========================================
+   PREMIUM DARK MOBILE MENU
+========================================= */
+
+@media (max-width: 768px) {
+
+  .mobile-menu {
+    background: #0b0b0b !important;
+    color: #ffffff !important;
+  }
+
+  /* Menu top */
+
+  .mobile-menu-head {
+    height: 68px !important;
+    padding: 0 22px !important;
+    background: #0b0b0b !important;
+    color: #ffffff !important;
+    border-bottom: 1px solid #262626 !important;
+  }
+
+  .mobile-menu-head strong {
+    color: #ffffff !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    letter-spacing: 2.5px !important;
+  }
+
+  .mobile-menu-head button {
+    width: 38px !important;
+    height: 38px !important;
+    color: #ffffff !important;
+    font-size: 32px !important;
+  }
+
+  /* Navigation */
+
+  .mobile-nav {
+    padding: 8px 22px 25px !important;
+    background: #0b0b0b !important;
+  }
+
+  .mobile-nav a,
+  .mobile-nav a:link,
+  .mobile-nav a:visited {
+    min-height: 0 !important;
+    height: auto !important;
+    padding: 13px 4px !important;
+    margin: 0 !important;
+
+    color: #f2f2f2 !important;
+    background: transparent !important;
+
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    letter-spacing: .1px !important;
+    line-height: 1.2 !important;
+
+    border-bottom: 1px solid #202020 !important;
+  }
+
+  .mobile-nav a:hover,
+  .mobile-nav a:active {
+    color: #39d353 !important;
+  }
+
+  /* Logout */
+
+  .mobile-nav .logout-link {
+    margin-top: 14px !important;
+    padding: 14px 12px !important;
+
+    color: #ff4d4d !important;
+    background: rgba(255, 60, 60, .06) !important;
+
+    border: 1px solid rgba(255, 60, 60, .18) !important;
+    border-radius: 6px !important;
+
+    font-weight: 700 !important;
+  }
+
+  .mobile-nav .logout-link:hover,
+  .mobile-nav .logout-link:active {
+    color: #ff6b6b !important;
+    background: rgba(255, 60, 60, .12) !important;
+  }
+
+}
