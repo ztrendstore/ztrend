@@ -4,15 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Personal Information | Shopora</title>
+  <title>My Account | Shopora</title>
 
   <link rel="stylesheet" href="../css/style.css">
 
   <style>
-    /* =====================================================
-       SHOPORA — PERSONAL INFORMATION
-       Standalone account page
-    ===================================================== */
+    /* =========================================================
+       SHOPORA ACCOUNT CENTER
+    ========================================================= */
 
     * {
       box-sizing: border-box;
@@ -26,7 +25,7 @@
       margin: 0;
       min-height: 100vh;
       background:
-        radial-gradient(circle at 10% 0%, rgba(142,224,0,.06), transparent 30%),
+        radial-gradient(circle at 10% 0%, rgba(142,224,0,.055), transparent 30%),
         #f5f6f4;
       color: #111;
       font-family: Arial, Helvetica, sans-serif;
@@ -34,477 +33,789 @@
 
     button,
     input,
-    select {
+    select,
+    textarea {
       font: inherit;
     }
 
-    /* =====================================================
-       PAGE
-    ===================================================== */
-
-    .profile-page {
-      width: min(1180px, calc(100% - 40px));
-      margin: 0 auto;
-      padding: 38px 0 70px;
+    a {
+      color: inherit;
     }
 
-    .back-link {
+    /* =========================================================
+       PAGE
+    ========================================================= */
+
+    .account-page {
+      width: min(1280px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 34px 0 70px;
+    }
+
+    .back-shop {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      color: #666;
       text-decoration: none;
+      color: #707070;
       font-size: 13px;
+      margin-bottom: 24px;
+      transition: .2s;
+    }
+
+    .back-shop:hover {
+      color: #79bf00;
+    }
+
+    .account-heading {
       margin-bottom: 28px;
-      transition: .2s ease;
     }
 
-    .back-link:hover {
-      color: #76bd00;
-    }
-
-    .page-intro {
-      margin-bottom: 28px;
-    }
-
-    .page-intro-label {
+    .account-heading small {
       display: block;
-      margin-bottom: 8px;
       color: #777;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
-      letter-spacing: 2.2px;
+      letter-spacing: 2.4px;
+      margin-bottom: 8px;
     }
 
-    .page-intro h1 {
+    .account-heading h1 {
       margin: 0;
       font-size: 38px;
       line-height: 1.1;
       letter-spacing: -1.4px;
-      font-weight: 700;
     }
 
-    /* =====================================================
-       MAIN LAYOUT
-    ===================================================== */
+    /* =========================================================
+       LAYOUT
+    ========================================================= */
 
-    .profile-layout {
+    .account-layout {
       display: grid;
-      grid-template-columns: 275px minmax(0, 1fr);
+      grid-template-columns: 285px minmax(0, 1fr);
       gap: 24px;
       align-items: start;
     }
 
-    /* =====================================================
-       GLASS PROFILE PANEL
-    ===================================================== */
+    /* =========================================================
+       SIDEBAR
+    ========================================================= */
 
-    .profile-glass {
+    .account-sidebar {
       position: sticky;
-      top: 24px;
+      top: 22px;
+
       overflow: hidden;
 
-      padding: 25px;
+      padding: 21px;
+
+      color: #fff;
 
       border-radius: 22px;
 
       background:
         linear-gradient(
           145deg,
-          rgba(35,35,35,.84),
-          rgba(7,7,7,.72)
+          rgba(35,35,35,.88),
+          rgba(7,7,7,.78)
         );
 
       border: 1px solid rgba(255,255,255,.13);
 
       box-shadow:
-        0 22px 55px rgba(0,0,0,.22),
-        inset 0 1px 0 rgba(255,255,255,.09);
+        0 20px 50px rgba(0,0,0,.20),
+        inset 0 1px 0 rgba(255,255,255,.08);
 
       backdrop-filter: blur(22px);
       -webkit-backdrop-filter: blur(22px);
-
-      color: #fff;
     }
 
-    .profile-glass::before {
+    .account-sidebar::before {
       content: "";
       position: absolute;
+
       width: 150px;
       height: 150px;
-      top: -80px;
-      right: -60px;
+
+      top: -85px;
+      right: -65px;
+
       border-radius: 50%;
-      background: rgba(142,224,0,.10);
+
+      background: rgba(142,224,0,.09);
+
       filter: blur(35px);
+
       pointer-events: none;
     }
 
-    .profile-glass-content {
+    .sidebar-inner {
       position: relative;
-      z-index: 1;
+      z-index: 2;
     }
 
-    .avatar {
-      width: 82px;
-      height: 82px;
+    /* PROFILE MINI */
+
+    .sidebar-profile {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+
+      padding: 4px 3px 20px;
+
+      border-bottom: 1px solid rgba(255,255,255,.10);
+    }
+
+    .sidebar-avatar {
+      width: 53px;
+      height: 53px;
+
+      flex: 0 0 53px;
 
       display: flex;
       align-items: center;
       justify-content: center;
-
-      margin-bottom: 17px;
 
       border-radius: 50%;
 
       background:
         linear-gradient(145deg, #444, #171717);
 
-      border: 1px solid rgba(255,255,255,.16);
+      border: 1px solid rgba(255,255,255,.15);
+
+      font-size: 20px;
+      font-weight: 700;
 
       box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.12),
-        0 12px 30px rgba(0,0,0,.25);
+        inset 0 1px 0 rgba(255,255,255,.10);
+    }
 
-      font-size: 29px;
+    .sidebar-profile strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 15px;
+    }
+
+    .sidebar-profile span {
+      display: block;
+      color: rgba(255,255,255,.48);
+      font-size: 11px;
+    }
+
+    /* MENU */
+
+    .menu-group {
+      margin-top: 20px;
+    }
+
+    .menu-label {
+      margin: 0 7px 8px;
+
+      color: rgba(255,255,255,.36);
+
+      font-size: 9px;
       font-weight: 700;
+      letter-spacing: 1.8px;
     }
 
-    .profile-glass h2 {
-      margin: 0 0 6px;
-      font-size: 22px;
-      font-weight: 700;
+    .account-menu {
+      display: grid;
+      gap: 3px;
     }
 
-    .profile-glass p {
-      margin: 0;
-      color: rgba(255,255,255,.56);
-      font-size: 13px;
-      line-height: 1.55;
-    }
+    .account-menu button {
+      width: 100%;
 
-    .glass-line {
-      height: 1px;
-      margin: 23px 0 20px;
-      background: rgba(255,255,255,.10);
-    }
-
-    .profile-status {
       display: flex;
       align-items: center;
-      gap: 8px;
-      color: rgba(255,255,255,.65);
-      font-size: 12px;
+      gap: 11px;
+
+      min-height: 42px;
+
+      padding: 9px 10px;
+
+      border: 1px solid transparent;
+      border-radius: 9px;
+
+      background: transparent;
+      color: rgba(255,255,255,.68);
+
+      text-align: left;
+
+      font-size: 12.5px;
+      font-weight: 500;
+
+      cursor: pointer;
+
+      transition:
+        background .18s ease,
+        color .18s ease,
+        border-color .18s ease;
     }
 
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #8ee000;
-      box-shadow: 0 0 12px rgba(142,224,0,.6);
+    .account-menu button:hover {
+      background: rgba(255,255,255,.055);
+      color: #8ee000;
     }
 
-    /* =====================================================
-       INFORMATION CARD
-    ===================================================== */
+    .account-menu button.active {
+      background: rgba(142,224,0,.095);
+      border-color: rgba(142,224,0,.16);
+      color: #8ee000;
+    }
 
-    .information-card {
-      overflow: hidden;
+    .menu-icon {
+      width: 17px;
+      height: 17px;
 
-      background: rgba(255,255,255,.92);
+      flex: 0 0 17px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .menu-icon svg {
+      width: 16px;
+      height: 16px;
+
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .menu-text {
+      flex: 1;
+    }
+
+    .menu-arrow {
+      color: rgba(255,255,255,.25);
+      font-size: 15px;
+    }
+
+    .account-menu button.active .menu-arrow {
+      color: #8ee000;
+    }
+
+    /* LOGOUT */
+
+    .logout-area {
+      margin-top: 18px;
+      padding-top: 17px;
+
+      border-top: 1px solid rgba(255,255,255,.09);
+    }
+
+    .logout-button {
+      width: 100%;
+
+      display: flex;
+      align-items: center;
+      gap: 11px;
+
+      padding: 10px;
+
+      border: 1px solid rgba(255,65,65,.12);
+      border-radius: 9px;
+
+      background: rgba(255,55,55,.035);
+      color: #ff5656;
+
+      cursor: pointer;
+
+      font-size: 12.5px;
+    }
+
+    .logout-button:hover {
+      background: rgba(255,55,55,.09);
+    }
+
+    /* =========================================================
+       CONTENT
+    ========================================================= */
+
+    .account-content {
+      min-width: 0;
+    }
+
+    .content-panel {
+      display: none;
+
+      background: rgba(255,255,255,.94);
 
       border: 1px solid #e5e7e3;
       border-radius: 22px;
 
       box-shadow:
-        0 14px 40px rgba(0,0,0,.05);
+        0 15px 45px rgba(0,0,0,.045);
+
+      overflow: hidden;
     }
 
-    .information-header {
+    .content-panel.active {
+      display: block;
+      animation: panelIn .22s ease;
+    }
+
+    @keyframes panelIn {
+      from {
+        opacity: 0;
+        transform: translateY(5px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .panel-header {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
       gap: 20px;
 
-      padding: 28px 30px 23px;
+      padding: 29px 30px 23px;
 
       border-bottom: 1px solid #ededed;
     }
 
-    .information-header h2 {
+    .panel-header h2 {
       margin: 0 0 6px;
-      font-size: 21px;
+
+      font-size: 22px;
+      letter-spacing: -.4px;
     }
 
-    .information-header p {
+    .panel-header p {
       margin: 0;
+
       color: #888;
+
       font-size: 13px;
+      line-height: 1.5;
     }
 
-    /* =====================================================
-       EDIT BUTTON
-    ===================================================== */
+    /* =========================================================
+       PERSONAL INFORMATION
+    ========================================================= */
 
-    .edit-btn {
+    .personal-body {
+      padding: 29px 30px 31px;
+    }
+
+    .profile-summary {
+      display: flex;
+      align-items: center;
+      gap: 17px;
+
+      padding: 17px;
+
+      margin-bottom: 27px;
+
+      border: 1px solid #e8e9e6;
+      border-radius: 14px;
+
+      background: #fafbf9;
+    }
+
+    .large-avatar {
+      width: 66px;
+      height: 66px;
+
+      flex: 0 0 66px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      background:
+        linear-gradient(145deg, #444, #171717);
+
+      color: #fff;
+
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .profile-summary h3 {
+      margin: 0 0 5px;
+      font-size: 18px;
+    }
+
+    .profile-summary p {
+      margin: 3px 0;
+      color: #888;
+      font-size: 12px;
+    }
+
+    .profile-info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 15px;
+    }
+
+    .info-item {
+      padding: 17px;
+
+      border: 1px solid #e9eae7;
+      border-radius: 12px;
+
+      background: #fff;
+    }
+
+    .info-item small {
+      display: block;
+
+      margin-bottom: 7px;
+
+      color: #888;
+
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .7px;
+      text-transform: uppercase;
+    }
+
+    .info-item strong {
+      display: block;
+
+      color: #222;
+
+      font-size: 14px;
+      font-weight: 600;
+
+      word-break: break-word;
+    }
+
+    /* EDIT MODE */
+
+    .edit-button {
       flex-shrink: 0;
 
+      min-height: 40px;
+
+      padding: 0 16px;
+
       border: 1px solid #111;
-      border-radius: 9px;
+      border-radius: 8px;
 
       background: #111;
       color: #fff;
 
-      padding: 11px 18px;
-
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
 
       cursor: pointer;
-
-      transition:
-        background .2s ease,
-        border-color .2s ease,
-        color .2s ease,
-        transform .2s ease;
     }
 
-    .edit-btn:hover {
+    .edit-button:hover {
       background: #8ee000;
       border-color: #8ee000;
       color: #111;
-      transform: translateY(-1px);
     }
 
-    /* =====================================================
-       FORM
-    ===================================================== */
+    .edit-form {
+      display: none;
+    }
 
-    .profile-form {
-      padding: 28px 30px 30px;
+    .edit-form.show {
+      display: block;
+    }
+
+    .view-mode.hidden {
+      display: none;
     }
 
     .form-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 21px;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 18px;
     }
 
-    .field {
-      min-width: 0;
-
+    .form-field {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 7px;
     }
 
-    .field.full {
-      grid-column: 1 / -1;
-    }
-
-    .field label {
+    .form-field label {
       color: #555;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
     }
 
-    .field input,
-    .field select {
+    .form-field input,
+    .form-field select {
       width: 100%;
-      height: 48px;
+      height: 46px;
 
-      padding: 0 14px;
+      padding: 0 13px;
 
-      border: 1px solid #dedfdd;
-      border-radius: 10px;
+      border: 1px solid #ddd;
+      border-radius: 9px;
+
+      background: #fafafa;
 
       outline: none;
 
-      background: #f8f9f7;
-      color: #222;
-
-      font-size: 14px;
-
-      transition:
-        border-color .2s ease,
-        background .2s ease,
-        box-shadow .2s ease;
+      font-size: 13px;
     }
 
-    .field input:disabled,
-    .field select:disabled {
-      color: #555;
-      cursor: default;
-      opacity: 1;
-    }
-
-    .field input:not(:disabled),
-    .field select:not(:disabled) {
+    .form-field input:focus,
+    .form-field select:focus {
+      border-color: #8ee000;
+      box-shadow: 0 0 0 3px rgba(142,224,0,.10);
       background: #fff;
     }
 
-    .field input:focus,
-    .field select:focus {
-      border-color: #8ee000;
-      box-shadow: 0 0 0 3px rgba(142,224,0,.10);
-    }
-
-    /* =====================================================
-       SAVE AREA
-    ===================================================== */
-
-    .save-area {
-      display: none;
-
+    .form-actions {
+      display: flex;
       justify-content: flex-end;
-      gap: 10px;
+      gap: 9px;
 
-      margin-top: 27px;
-      padding-top: 23px;
+      margin-top: 23px;
+      padding-top: 21px;
 
       border-top: 1px solid #ededed;
     }
 
-    .cancel-btn,
-    .save-btn {
-      min-height: 42px;
+    .cancel-button,
+    .save-button {
+      min-height: 41px;
 
-      padding: 0 18px;
+      padding: 0 17px;
 
-      border-radius: 9px;
+      border-radius: 8px;
 
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
 
       cursor: pointer;
     }
 
-    .cancel-btn {
+    .cancel-button {
       border: 1px solid #ddd;
       background: #fff;
       color: #333;
     }
 
-    .cancel-btn:hover {
-      background: #f5f5f5;
-    }
-
-    .save-btn {
+    .save-button {
       border: 1px solid #111;
       background: #111;
       color: #fff;
     }
 
-    .save-btn:hover {
+    .save-button:hover {
       border-color: #8ee000;
       background: #8ee000;
       color: #111;
     }
 
-    /* =====================================================
-       SAVED MESSAGE
-    ===================================================== */
+    /* =========================================================
+       GENERIC CONTENT
+    ========================================================= */
 
-    .saved-message {
-      display: none;
+    .panel-body {
+      padding: 28px 30px 31px;
+    }
 
-      margin-top: 18px;
-      padding: 12px 14px;
+    .empty-state {
+      padding: 55px 20px;
 
-      border: 1px solid rgba(142,224,0,.30);
-      border-radius: 9px;
+      text-align: center;
+    }
 
-      background: rgba(142,224,0,.08);
-      color: #4d7500;
+    .empty-icon {
+      width: 58px;
+      height: 58px;
 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin: 0 auto 15px;
+
+      border-radius: 15px;
+
+      background: #f0f2ee;
+      color: #222;
+    }
+
+    .empty-icon svg {
+      width: 25px;
+      height: 25px;
+
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .empty-state h3 {
+      margin: 0 0 7px;
+      font-size: 18px;
+    }
+
+    .empty-state p {
+      max-width: 420px;
+
+      margin: 0 auto;
+
+      color: #888;
+
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* =========================================================
+       ORDER / ADDRESS / PAYMENT CARDS
+    ========================================================= */
+
+    .data-list {
+      display: grid;
+      gap: 11px;
+    }
+
+    .data-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+
+      padding: 16px;
+
+      border: 1px solid #e7e8e5;
+      border-radius: 12px;
+
+      background: #fff;
+    }
+
+    .data-row-main strong {
+      display: block;
+      margin-bottom: 4px;
       font-size: 13px;
     }
 
-    /* =====================================================
-       TABLET
-    ===================================================== */
+    .data-row-main span {
+      color: #888;
+      font-size: 11px;
+    }
+
+    .row-action {
+      border: 0;
+      background: transparent;
+      color: #76b900;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .add-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+
+      margin-bottom: 17px;
+
+      min-height: 40px;
+      padding: 0 14px;
+
+      border: 1px solid #111;
+      border-radius: 8px;
+
+      background: #111;
+      color: #fff;
+
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .add-button:hover {
+      background: #8ee000;
+      border-color: #8ee000;
+      color: #111;
+    }
+
+    /* =========================================================
+       MOBILE
+    ========================================================= */
 
     @media (max-width: 850px) {
 
-      .profile-page {
-        width: min(100% - 30px, 700px);
-        padding-top: 28px;
+      .account-page {
+        width: min(100% - 28px, 700px);
+        padding-top: 26px;
       }
 
-      .profile-layout {
+      .account-layout {
         grid-template-columns: 1fr;
+        gap: 16px;
       }
 
-      .profile-glass {
+      .account-sidebar {
         position: relative;
         top: auto;
       }
 
-      .avatar {
-        width: 70px;
-        height: 70px;
-        font-size: 25px;
+      .account-menu {
+        grid-template-columns: 1fr 1fr;
+        gap: 3px;
+      }
+
+      .logout-area {
+        margin-top: 15px;
       }
     }
-
-    /* =====================================================
-       MOBILE
-    ===================================================== */
 
     @media (max-width: 600px) {
 
       body {
         background:
-          radial-gradient(
-            circle at 90% 0%,
-            rgba(142,224,0,.07),
-            transparent 35%
-          ),
+          radial-gradient(circle at 90% 0%, rgba(142,224,0,.06), transparent 35%),
           #f5f6f4;
       }
 
-      .profile-page {
+      .account-page {
         width: 100%;
-        padding: 22px 14px 45px;
+        padding: 20px 12px 45px;
       }
 
-      .back-link {
-        margin-bottom: 22px;
-        padding-left: 2px;
+      .back-shop {
+        margin: 0 3px 20px;
       }
 
-      .page-intro {
-        margin-bottom: 20px;
-        padding: 0 3px;
+      .account-heading {
+        margin: 0 3px 18px;
       }
 
-      .page-intro-label {
-        font-size: 10px;
+      .account-heading small {
+        font-size: 9px;
         letter-spacing: 2px;
       }
 
-      .page-intro h1 {
-        font-size: 29px;
-        letter-spacing: -1px;
+      .account-heading h1 {
+        font-size: 28px;
       }
 
-      .profile-layout {
-        gap: 15px;
-      }
+      /* GLASS MENU */
 
-      /* DARK GLASS PANEL */
-
-      .profile-glass {
-        padding: 20px;
+      .account-sidebar {
+        padding: 17px;
 
         border-radius: 20px;
 
         background:
           linear-gradient(
             145deg,
-            rgba(30,30,30,.76),
-            rgba(5,5,5,.67)
+            rgba(30,30,30,.78),
+            rgba(5,5,5,.68)
           );
 
         border: 1px solid rgba(255,255,255,.14);
@@ -513,146 +824,172 @@
           0 18px 45px rgba(0,0,0,.20),
           inset 0 1px 0 rgba(255,255,255,.09);
 
-        backdrop-filter: blur(24px) saturate(125%);
-        -webkit-backdrop-filter: blur(24px) saturate(125%);
+        backdrop-filter: blur(25px) saturate(125%);
+        -webkit-backdrop-filter: blur(25px) saturate(125%);
       }
 
-      .profile-glass::after {
-        content: "";
-        position: absolute;
-        inset: 1px;
-
-        border-radius: 19px;
-
-        background:
-          linear-gradient(
-            135deg,
-            rgba(255,255,255,.05),
-            transparent 35%
-          );
-
-        pointer-events: none;
+      .sidebar-profile {
+        padding-bottom: 15px;
       }
 
-      .profile-glass-content {
-        position: relative;
-        z-index: 2;
+      .sidebar-avatar {
+        width: 48px;
+        height: 48px;
+        flex-basis: 48px;
+        font-size: 18px;
       }
 
-      .avatar {
-        width: 64px;
-        height: 64px;
-
-        margin-bottom: 13px;
-
-        font-size: 23px;
+      .sidebar-profile strong {
+        font-size: 14px;
       }
 
-      .profile-glass h2 {
-        font-size: 20px;
-        margin-bottom: 4px;
+      .sidebar-profile span {
+        font-size: 10px;
       }
 
-      .profile-glass p {
-        font-size: 12px;
+      .menu-group {
+        margin-top: 14px;
       }
 
-      .glass-line {
-        margin: 18px 0 16px;
+      .menu-label {
+        margin-bottom: 5px;
+        font-size: 8px;
       }
 
-      .profile-status {
+      .account-menu {
+        grid-template-columns: 1fr 1fr;
+        gap: 2px;
+      }
+
+      .account-menu button {
+        min-height: 39px;
+        padding: 8px 8px;
         font-size: 11px;
       }
 
-      /* INFORMATION CARD */
+      .menu-icon {
+        width: 15px;
+        height: 15px;
+        flex-basis: 15px;
+      }
 
-      .information-card {
+      .menu-icon svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      .menu-arrow {
+        font-size: 13px;
+      }
+
+      .logout-area {
+        padding-top: 13px;
+        margin-top: 12px;
+      }
+
+      .logout-button {
+        padding: 9px 8px;
+        font-size: 11px;
+      }
+
+      /* CONTENT */
+
+      .content-panel {
         border-radius: 19px;
       }
 
-      .information-header {
+      .panel-header {
         display: block;
-        padding: 21px 18px 18px;
+        padding: 21px 17px 18px;
       }
 
-      .information-header h2 {
+      .panel-header h2 {
         font-size: 19px;
+      }
+
+      .panel-header p {
+        font-size: 11px;
+      }
+
+      .edit-button {
+        width: 100%;
+        margin-top: 15px;
+      }
+
+      .personal-body,
+      .panel-body {
+        padding: 19px 17px 21px;
+      }
+
+      .profile-summary {
+        padding: 14px;
+        margin-bottom: 18px;
+      }
+
+      .large-avatar {
+        width: 57px;
+        height: 57px;
+        flex-basis: 57px;
+        font-size: 21px;
+      }
+
+      .profile-summary h3 {
+        font-size: 16px;
+      }
+
+      .profile-summary p {
+        font-size: 11px;
+      }
+
+      .profile-info-grid {
+        grid-template-columns: 1fr;
+        gap: 9px;
+      }
+
+      .info-item {
+        padding: 14px;
+      }
+
+      .info-item small {
         margin-bottom: 5px;
       }
 
-      .information-header p {
-        font-size: 12px;
-        line-height: 1.5;
-        margin-bottom: 16px;
-      }
-
-      .edit-btn {
-        width: 100%;
-        min-height: 45px;
-      }
-
-      .profile-form {
-        padding: 20px 18px 21px;
+      .info-item strong {
+        font-size: 13px;
       }
 
       .form-grid {
         grid-template-columns: 1fr;
-        gap: 17px;
+        gap: 15px;
       }
 
-      .field.full {
-        grid-column: auto;
-      }
-
-      .field label {
-        font-size: 11px;
-      }
-
-      .field input,
-      .field select {
-        height: 46px;
-        font-size: 13px;
-      }
-
-      .save-area {
-        display: none;
+      .form-actions {
         flex-direction: column-reverse;
-        gap: 9px;
-        margin-top: 21px;
-        padding-top: 19px;
       }
 
-      .cancel-btn,
-      .save-btn {
+      .cancel-button,
+      .save-button {
         width: 100%;
-        min-height: 44px;
+      }
+
+      .data-row {
+        padding: 13px;
       }
     }
 
-    /* =====================================================
-       SMALL PHONES
-    ===================================================== */
-
     @media (max-width: 380px) {
 
-      .profile-page {
-        padding-left: 11px;
-        padding-right: 11px;
+      .account-page {
+        padding-left: 9px;
+        padding-right: 9px;
       }
 
-      .page-intro h1 {
-        font-size: 26px;
+      .account-menu button {
+        font-size: 10.5px;
       }
 
-      .profile-glass {
-        padding: 18px;
-      }
-
-      .information-header,
-      .profile-form {
-        padding-left: 16px;
-        padding-right: 16px;
+      .account-sidebar {
+        padding: 14px;
       }
     }
   </style>
@@ -660,56 +997,317 @@
 
 <body>
 
-  <main class="profile-page">
+  <main class="account-page">
 
     <!-- BACK -->
-    <a href="../index.html" class="back-link">
+    <a href="../index.html" class="back-shop">
       <span>←</span>
       <span>Back to Shop</span>
     </a>
 
 
-    <!-- PAGE TITLE -->
-    <header class="page-intro">
+    <!-- TITLE -->
+    <div class="account-heading">
 
-      <span class="page-intro-label">
-        MY ACCOUNT
-      </span>
+      <small>SHOPORA ACCOUNT</small>
 
-      <h1>
-        Personal Information
-      </h1>
+      <h1>My Account</h1>
 
-    </header>
+    </div>
 
 
-    <!-- MAIN -->
-    <div class="profile-layout">
+    <div class="account-layout">
 
 
-      <!-- GLASS PROFILE -->
-      <aside class="profile-glass">
+      <!-- =====================================================
+           SIDEBAR
+      ====================================================== -->
 
-        <div class="profile-glass-content">
+      <aside class="account-sidebar">
 
-          <div class="avatar">
-            R
+        <div class="sidebar-inner">
+
+          <!-- USER -->
+          <div class="sidebar-profile">
+
+            <div class="sidebar-avatar">
+              R
+            </div>
+
+            <div>
+              <strong>Riyaz</strong>
+              <span>My Account</span>
+            </div>
+
           </div>
 
-          <h2>
-            Riyaz
-          </h2>
 
-          <p>
-            Manage your personal information
-            and account details.
-          </p>
+          <!-- SHOPPING -->
+          <div class="menu-group">
 
-          <div class="glass-line"></div>
+            <div class="menu-label">
+              MY SHOPPING
+            </div>
 
-          <div class="profile-status">
-            <span class="status-dot"></span>
-            <span>Account active</span>
+            <div class="account-menu">
+
+              <button
+                type="button"
+                data-section="orders">
+
+                <span class="menu-icon">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M6 3h12v18H6z"/>
+                    <path d="M9 7h6"/>
+                    <path d="M9 11h6"/>
+                    <path d="M9 15h4"/>
+                  </svg>
+                </span>
+
+                <span class="menu-text">
+                  My Orders
+                </span>
+
+                <span class="menu-arrow">›</span>
+
+              </button>
+
+
+              <button
+                type="button"
+                data-section="tracking">
+
+                <span class="menu-icon">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M3 7h11v10H3z"/>
+                    <path d="M14 10h4l3 3v4h-7z"/>
+                    <circle cx="7" cy="18" r="2"/>
+                    <circle cx="18" cy="18" r="2"/>
+                  </svg>
+                </span>
+
+                <span class="menu-text">
+                  Track Order
+                </span>
+
+                <span class="menu-arrow">›</span>
+
+              </button>
+
+
+              <button
+                type="button"
+                data-section="wishlist">
+
+                <span class="menu-icon">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M20.8 8.7c0 5.2-8.8 10-8.8 10s-8.8-4.8-8.8-10A4.7 4.7 0 0 1 12 5.6a4.7 4.7 0 0 1 8.8 3.1Z"/>
+                  </svg>
+                </span>
+
+                <span class="menu-text">
+                  Wishlist
+                </span>
+
+                <span class="menu-arrow">›</span>
+
+              </button>
+
+
+              <button
+                type="button"
+                data-section="reviews">
+
+                <span class="menu-icon">
+                  <svg viewBox="0 0 24 24">
+                    <path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9z"/>
+                  </svg>
+                </span>
+
+                <span class="menu-text">
+                  My Reviews
+                </span>
+
+                <span class="menu-arrow">›</span>
+
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- ACCOUNT -->
+          <div class="menu-group">
+
+            <div class="menu-label">
+              MY ACCOUNT
+            </div>
+
+            <div class="account-menu">
+
+              <button
+                type="button"
+                class="active"
+                data-section="personal">
+
+                <span class="menu-icon">
+                  <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="8" r="3.5"/>
+                    <path d="M5 21c.7-4 3-6 7-6s6.3 2 7 6"/>
+                  </svg>
+                </span>
+
+                <span class="menu-text">
+                  Personal Information
+                </span>
+
+                <span class="menu-arrow">✓</span>
+
+              </button>
+
+
+              <button
+                type="button"
+                data-section="addresses">
+
+                <span class="menu-icon">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 21s7-6.1 7-11a7 7 0 0 0-14 0c0 4.9 7 11 7 11z"/>
+                    <circle cx="12" cy="10" r="2.2"/>
+                  </svg>
+                </span>
+
+                <span class="menu-text">
+                  Addresses
+                </span>
+
+                <span class="menu-arrow">›</span>
+
+              </button>
+
+
+              <button
+                type="button"
+                data-section="payments">
+
+                <span class="menu-icon">
+                  <svg viewBox="0 0 24 24">
+                    <rect x="3" y="5" width="18" height="14" rx="2"/>
+                    <path d="M3 10h18"/>
+                    <path d="M7 15h4"/>
+                  </svg>
+                </span>
+
+                <span class="menu-text">
+                  Payment Methods
+                </span>
+
+                <span class="menu-arrow">›</span>
+
+              </button>
+
+
+              <button
+                type="button"
+                data-section="coupons">
+
+                <span class="menu-icon">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M4 6h16v12H4z"/>
+                    <path d="M8 6v12"/>
+                    <path d="M12 9h5"/>
+                    <path d="M12 13h3"/>
+                  </svg>
+                </span>
+
+                <span class="menu-text">
+                  Coupons & Offers
+                </span>
+
+                <span class="menu-arrow">›</span>
+
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- SUPPORT -->
+          <div class="menu-group">
+
+            <div class="menu-label">
+              SUPPORT
+            </div>
+
+            <div class="account-menu">
+
+              <button
+                type="button"
+                data-section="support">
+
+                <span class="menu-icon">
+                  <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="9"/>
+                    <path d="M9.5 9a2.5 2.5 0 1 1 4.2 1.8c-1.2 1-1.7 1.5-1.7 3"/>
+                    <path d="M12 17h.01"/>
+                  </svg>
+                </span>
+
+                <span class="menu-text">
+                  Help & Support
+                </span>
+
+                <span class="menu-arrow">›</span>
+
+              </button>
+
+
+              <button
+                type="button"
+                data-section="settings">
+
+                <span class="menu-icon">
+                  <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="3"/>
+                    <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-1.5 1.5-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V20h-2v-.2a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1-1.5-1.5.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H7v-2h.2a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1 1.5-1.5.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.6V4h2v.2a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1 1.5 1.5-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v2h-.2a1.7 1.7 0 0 0-1.6 1Z"/>
+                  </svg>
+                </span>
+
+                <span class="menu-text">
+                  Settings
+                </span>
+
+                <span class="menu-arrow">›</span>
+
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- LOGOUT -->
+          <div class="logout-area">
+
+            <button
+              type="button"
+              class="logout-button"
+              id="logoutButton">
+
+              <span class="menu-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M10 4H5v16h5"/>
+                  <path d="M14 8l4 4-4 4"/>
+                  <path d="M18 12H9"/>
+                </svg>
+              </span>
+
+              Logout
+
+            </button>
+
           </div>
 
         </div>
@@ -717,201 +1315,875 @@
       </aside>
 
 
-      <!-- PERSONAL INFORMATION -->
-      <section class="information-card">
+      <!-- =====================================================
+           CONTENT
+      ====================================================== -->
+
+      <section class="account-content">
 
 
-        <!-- HEADER -->
-        <div class="information-header">
+        <!-- ===================================================
+             PERSONAL INFORMATION
+        ==================================================== -->
 
-          <div>
+        <article
+          class="content-panel active"
+          data-panel="personal">
 
-            <h2>
-              Personal Information
-            </h2>
+          <div class="panel-header">
 
-            <p>
-              Keep your account details up to date.
-            </p>
+            <div>
 
-          </div>
+              <h2>
+                Personal Information
+              </h2>
 
-
-          <button
-            type="button"
-            class="edit-btn"
-            id="editBtn">
-
-            Edit Profile
-
-          </button>
-
-        </div>
-
-
-        <!-- FORM -->
-        <form
-          class="profile-form"
-          id="profileForm">
-
-          <div class="form-grid">
-
-
-            <!-- FIRST NAME -->
-            <div class="field">
-
-              <label for="firstName">
-                First Name
-              </label>
-
-              <input
-                id="firstName"
-                type="text"
-                value="Riyaz"
-                disabled
-              >
+              <p>
+                Manage your name, contact details and profile information.
+              </p>
 
             </div>
-
-
-            <!-- LAST NAME -->
-            <div class="field">
-
-              <label for="lastName">
-                Last Name
-              </label>
-
-              <input
-                id="lastName"
-                type="text"
-                placeholder="Enter last name"
-                disabled
-              >
-
-            </div>
-
-
-            <!-- EMAIL -->
-            <div class="field">
-
-              <label for="email">
-                Email Address
-              </label>
-
-              <input
-                id="email"
-                type="email"
-                value="riyaz@example.com"
-                disabled
-              >
-
-            </div>
-
-
-            <!-- MOBILE -->
-            <div class="field">
-
-              <label for="mobile">
-                Mobile Number
-              </label>
-
-              <input
-                id="mobile"
-                type="tel"
-                value="+91 XXXXX XXXXX"
-                disabled
-              >
-
-            </div>
-
-
-            <!-- DOB -->
-            <div class="field">
-
-              <label for="dob">
-                Date of Birth
-              </label>
-
-              <input
-                id="dob"
-                type="date"
-                disabled
-              >
-
-            </div>
-
-
-            <!-- GENDER -->
-            <div class="field">
-
-              <label for="gender">
-                Gender
-              </label>
-
-              <select
-                id="gender"
-                disabled
-              >
-
-                <option value="">
-                  Select
-                </option>
-
-                <option value="Male">
-                  Male
-                </option>
-
-                <option value="Female">
-                  Female
-                </option>
-
-                <option value="Other">
-                  Other
-                </option>
-
-              </select>
-
-            </div>
-
-
-          </div>
-
-
-          <!-- SAVE BUTTONS -->
-          <div
-            class="save-area"
-            id="saveArea">
 
             <button
               type="button"
-              class="cancel-btn"
-              id="cancelBtn">
+              class="edit-button"
+              id="editProfileButton">
 
-              Cancel
+              Edit Profile
 
             </button>
+
+          </div>
+
+
+          <div class="personal-body">
+
+            <!-- NORMAL VIEW -->
+
+            <div
+              class="view-mode"
+              id="personalView">
+
+              <div class="profile-summary">
+
+                <div class="large-avatar">
+                  R
+                </div>
+
+                <div>
+
+                  <h3 id="displayName">
+                    Riyaz
+                  </h3>
+
+                  <p id="displayEmail">
+                    riyaz@example.com
+                  </p>
+
+                  <p id="displayMobile">
+                    +91 XXXXX XXXXX
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <div class="profile-info-grid">
+
+                <div class="info-item">
+
+                  <small>
+                    First Name
+                  </small>
+
+                  <strong id="viewFirstName">
+                    Riyaz
+                  </strong>
+
+                </div>
+
+
+                <div class="info-item">
+
+                  <small>
+                    Last Name
+                  </small>
+
+                  <strong id="viewLastName">
+                    —
+                  </strong>
+
+                </div>
+
+
+                <div class="info-item">
+
+                  <small>
+                    Email Address
+                  </small>
+
+                  <strong id="viewEmail">
+                    riyaz@example.com
+                  </strong>
+
+                </div>
+
+
+                <div class="info-item">
+
+                  <small>
+                    Mobile Number
+                  </small>
+
+                  <strong id="viewMobile">
+                    +91 XXXXX XXXXX
+                  </strong>
+
+                </div>
+
+
+                <div class="info-item">
+
+                  <small>
+                    Date of Birth
+                  </small>
+
+                  <strong id="viewDob">
+                    —
+                  </strong>
+
+                </div>
+
+
+                <div class="info-item">
+
+                  <small>
+                    Gender
+                  </small>
+
+                  <strong id="viewGender">
+                    —
+                  </strong>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- EDIT FORM -->
+
+            <form
+              class="edit-form"
+              id="profileEditForm">
+
+              <div class="form-grid">
+
+                <div class="form-field">
+
+                  <label>
+                    First Name
+                  </label>
+
+                  <input
+                    type="text"
+                    id="editFirstName"
+                    value="Riyaz"
+                  >
+
+                </div>
+
+
+                <div class="form-field">
+
+                  <label>
+                    Last Name
+                  </label>
+
+                  <input
+                    type="text"
+                    id="editLastName"
+                    placeholder="Enter last name"
+                  >
+
+                </div>
+
+
+                <div class="form-field">
+
+                  <label>
+                    Email Address
+                  </label>
+
+                  <input
+                    type="email"
+                    id="editEmail"
+                    value="riyaz@example.com"
+                  >
+
+                </div>
+
+
+                <div class="form-field">
+
+                  <label>
+                    Mobile Number
+                  </label>
+
+                  <input
+                    type="tel"
+                    id="editMobile"
+                    value="+91 XXXXX XXXXX"
+                  >
+
+                </div>
+
+
+                <div class="form-field">
+
+                  <label>
+                    Date of Birth
+                  </label>
+
+                  <input
+                    type="date"
+                    id="editDob"
+                  >
+
+                </div>
+
+
+                <div class="form-field">
+
+                  <label>
+                    Gender
+                  </label>
+
+                  <select id="editGender">
+
+                    <option value="">
+                      Select Gender
+                    </option>
+
+                    <option value="Male">
+                      Male
+                    </option>
+
+                    <option value="Female">
+                      Female
+                    </option>
+
+                    <option value="Other">
+                      Other
+                    </option>
+
+                  </select>
+
+                </div>
+
+              </div>
+
+
+              <div class="form-actions">
+
+                <button
+                  type="button"
+                  class="cancel-button"
+                  id="cancelEdit">
+
+                  Cancel
+
+                </button>
+
+                <button
+                  type="submit"
+                  class="save-button">
+
+                  Save Changes
+
+                </button>
+
+              </div>
+
+            </form>
+
+          </div>
+
+        </article>
+
+
+        <!-- ===================================================
+             ORDERS
+        ==================================================== -->
+
+        <article
+          class="content-panel"
+          data-panel="orders">
+
+          <div class="panel-header">
+
+            <div>
+
+              <h2>
+                My Orders
+              </h2>
+
+              <p>
+                View and manage all your purchases.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="panel-body">
+
+            <div class="empty-state">
+
+              <div class="empty-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M6 3h12v18H6z"/>
+                  <path d="M9 7h6"/>
+                  <path d="M9 11h6"/>
+                  <path d="M9 15h4"/>
+                </svg>
+              </div>
+
+              <h3>
+                No orders yet
+              </h3>
+
+              <p>
+                Your placed orders will appear here with their
+                order details and status.
+              </p>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- ===================================================
+             TRACKING
+        ==================================================== -->
+
+        <article
+          class="content-panel"
+          data-panel="tracking">
+
+          <div class="panel-header">
+
+            <div>
+
+              <h2>
+                Track Order
+              </h2>
+
+              <p>
+                Track the delivery status of your order.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="panel-body">
+
+            <div class="empty-state">
+
+              <div class="empty-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M3 7h11v10H3z"/>
+                  <path d="M14 10h4l3 3v4h-7z"/>
+                  <circle cx="7" cy="18" r="2"/>
+                  <circle cx="18" cy="18" r="2"/>
+                </svg>
+              </div>
+
+              <h3>
+                Track your order
+              </h3>
+
+              <p>
+                Once you place an order, its live delivery
+                tracking will appear here.
+              </p>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- ===================================================
+             WISHLIST
+        ==================================================== -->
+
+        <article
+          class="content-panel"
+          data-panel="wishlist">
+
+          <div class="panel-header">
+
+            <div>
+
+              <h2>
+                Wishlist
+              </h2>
+
+              <p>
+                Products you have saved for later.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="panel-body">
+
+            <div class="empty-state">
+
+              <div class="empty-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M20.8 8.7c0 5.2-8.8 10-8.8 10s-8.8-4.8-8.8-10A4.7 4.7 0 0 1 12 5.6a4.7 4.7 0 0 1 8.8 3.1Z"/>
+                </svg>
+              </div>
+
+              <h3>
+                Your wishlist is empty
+              </h3>
+
+              <p>
+                Save products you love and they will appear
+                here for easy access later.
+              </p>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- ===================================================
+             REVIEWS
+        ==================================================== -->
+
+        <article
+          class="content-panel"
+          data-panel="reviews">
+
+          <div class="panel-header">
+
+            <div>
+
+              <h2>
+                My Reviews
+              </h2>
+
+              <p>
+                Manage your product ratings and reviews.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="panel-body">
+
+            <div class="empty-state">
+
+              <div class="empty-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9z"/>
+                </svg>
+              </div>
+
+              <h3>
+                No reviews yet
+              </h3>
+
+              <p>
+                Reviews for products you purchase will appear here.
+              </p>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- ===================================================
+             ADDRESSES
+        ==================================================== -->
+
+        <article
+          class="content-panel"
+          data-panel="addresses">
+
+          <div class="panel-header">
+
+            <div>
+
+              <h2>
+                My Addresses
+              </h2>
+
+              <p>
+                Manage your saved delivery addresses.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="panel-body">
 
             <button
-              type="submit"
-              class="save-btn">
+              type="button"
+              class="add-button">
 
-              Save Changes
+              + Add New Address
 
             </button>
 
+
+            <div class="data-list">
+
+              <div class="data-row">
+
+                <div class="data-row-main">
+
+                  <strong>
+                    No saved addresses
+                  </strong>
+
+                  <span>
+                    Add a delivery address for faster checkout.
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
           </div>
 
+        </article>
 
-          <!-- SAVED MESSAGE -->
-          <div
-            class="saved-message"
-            id="savedMessage">
 
-            ✓ Your personal information has been saved.
+        <!-- ===================================================
+             PAYMENTS
+        ==================================================== -->
+
+        <article
+          class="content-panel"
+          data-panel="payments">
+
+          <div class="panel-header">
+
+            <div>
+
+              <h2>
+                Payment Methods
+              </h2>
+
+              <p>
+                Manage your saved payment options.
+              </p>
+
+            </div>
 
           </div>
 
-        </form>
+          <div class="panel-body">
+
+            <button
+              type="button"
+              class="add-button">
+
+              + Add Payment Method
+
+            </button>
+
+
+            <div class="data-list">
+
+              <div class="data-row">
+
+                <div class="data-row-main">
+
+                  <strong>
+                    No saved payment methods
+                  </strong>
+
+                  <span>
+                    Your UPI, card and other payment options will appear here.
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- ===================================================
+             COUPONS
+        ==================================================== -->
+
+        <article
+          class="content-panel"
+          data-panel="coupons">
+
+          <div class="panel-header">
+
+            <div>
+
+              <h2>
+                Coupons & Offers
+              </h2>
+
+              <p>
+                View your available discounts and offers.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="panel-body">
+
+            <div class="empty-state">
+
+              <div class="empty-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M4 6h16v12H4z"/>
+                  <path d="M8 6v12"/>
+                  <path d="M12 9h5"/>
+                  <path d="M12 13h3"/>
+                </svg>
+              </div>
+
+              <h3>
+                No coupons available
+              </h3>
+
+              <p>
+                Available promotional coupons and offers will appear here.
+              </p>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- ===================================================
+             SUPPORT
+        ==================================================== -->
+
+        <article
+          class="content-panel"
+          data-panel="support">
+
+          <div class="panel-header">
+
+            <div>
+
+              <h2>
+                Help & Support
+              </h2>
+
+              <p>
+                Get assistance with your account and orders.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="panel-body">
+
+            <div class="data-list">
+
+              <div class="data-row">
+
+                <div class="data-row-main">
+
+                  <strong>
+                    Order Help
+                  </strong>
+
+                  <span>
+                    Need help with an order or delivery?
+                  </span>
+
+                </div>
+
+                <button class="row-action">
+                  Open
+                </button>
+
+              </div>
+
+
+              <div class="data-row">
+
+                <div class="data-row-main">
+
+                  <strong>
+                    Returns & Refunds
+                  </strong>
+
+                  <span>
+                    Information about returns and refunds.
+                  </span>
+
+                </div>
+
+                <button class="row-action">
+                  Open
+                </button>
+
+              </div>
+
+
+              <div class="data-row">
+
+                <div class="data-row-main">
+
+                  <strong>
+                    Contact Us
+                  </strong>
+
+                  <span>
+                    Get in touch with Shopora support.
+                  </span>
+
+                </div>
+
+                <button class="row-action">
+                  Open
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- ===================================================
+             SETTINGS
+        ==================================================== -->
+
+        <article
+          class="content-panel"
+          data-panel="settings">
+
+          <div class="panel-header">
+
+            <div>
+
+              <h2>
+                Settings
+              </h2>
+
+              <p>
+                Manage your account preferences.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="panel-body">
+
+            <div class="data-list">
+
+              <div class="data-row">
+
+                <div class="data-row-main">
+
+                  <strong>
+                    Notifications
+                  </strong>
+
+                  <span>
+                    Manage order and promotional notifications.
+                  </span>
+
+                </div>
+
+                <button class="row-action">
+                  Manage
+                </button>
+
+              </div>
+
+
+              <div class="data-row">
+
+                <div class="data-row-main">
+
+                  <strong>
+                    Privacy
+                  </strong>
+
+                  <span>
+                    Manage your account privacy preferences.
+                  </span>
+
+                </div>
+
+                <button class="row-action">
+                  Manage
+                </button>
+
+              </div>
+
+
+              <div class="data-row">
+
+                <div class="data-row-main">
+
+                  <strong>
+                    Account Security
+                  </strong>
+
+                  <span>
+                    Manage password and security settings.
+                  </span>
+
+                </div>
+
+                <button class="row-action">
+                  Manage
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </article>
+
 
       </section>
 
@@ -922,118 +2194,439 @@
 
   <script>
 
-    const editBtn =
-      document.getElementById("editBtn");
+    /* =========================================================
+       SECTION SWITCHING
+    ========================================================= */
 
-    const cancelBtn =
-      document.getElementById("cancelBtn");
+    const menuButtons =
+      document.querySelectorAll("[data-section]");
 
-    const saveArea =
-      document.getElementById("saveArea");
-
-    const savedMessage =
-      document.getElementById("savedMessage");
-
-    const form =
-      document.getElementById("profileForm");
+    const panels =
+      document.querySelectorAll("[data-panel]");
 
 
-    const fields = [
-      document.getElementById("firstName"),
-      document.getElementById("lastName"),
-      document.getElementById("email"),
-      document.getElementById("mobile"),
-      document.getElementById("dob"),
-      document.getElementById("gender")
-    ];
+    function showSection(sectionName) {
 
+      /* Hide every panel */
 
-    /* SAVE ORIGINAL VALUES */
+      panels.forEach(panel => {
 
-    let originalValues = {};
+        panel.classList.remove("active");
 
-    function storeOriginalValues() {
-
-      originalValues = {};
-
-      fields.forEach(field => {
-        originalValues[field.id] = field.value;
       });
+
+
+      /* Remove active from every menu button */
+
+      menuButtons.forEach(button => {
+
+        button.classList.remove("active");
+
+      });
+
+
+      /* Show selected panel */
+
+      const selectedPanel =
+        document.querySelector(
+          '[data-panel="' + sectionName + '"]'
+        );
+
+      if (selectedPanel) {
+        selectedPanel.classList.add("active");
+      }
+
+
+      /* Activate selected menu */
+
+      menuButtons.forEach(button => {
+
+        if (
+          button.dataset.section === sectionName
+        ) {
+          button.classList.add("active");
+        }
+
+      });
+
+
+      /* Update URL without reloading */
+
+      history.replaceState(
+        null,
+        "",
+        "#" + sectionName
+      );
+
+
+      /* Scroll content to top on mobile */
+
+      if (window.innerWidth <= 600) {
+
+        const content =
+          document.querySelector(".account-content");
+
+        if (content) {
+
+          content.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+
+        }
+
+      }
 
     }
 
 
-    /* ENABLE EDIT */
+    menuButtons.forEach(button => {
 
-    editBtn.addEventListener("click", () => {
+      button.addEventListener("click", () => {
 
-      storeOriginalValues();
+        showSection(button.dataset.section);
 
-      fields.forEach(field => {
-        field.disabled = false;
       });
-
-      editBtn.style.display = "none";
-
-      saveArea.style.display = "flex";
-
-      savedMessage.style.display = "none";
 
     });
 
 
-    /* CANCEL */
+    /* Open section directly from URL hash */
 
-    cancelBtn.addEventListener("click", () => {
+    const initialSection =
+      window.location.hash.replace("#", "");
 
-      fields.forEach(field => {
 
-        if (
-          Object.prototype.hasOwnProperty.call(
-            originalValues,
-            field.id
-          )
-        ) {
-          field.value =
-            originalValues[field.id];
+    if (
+      initialSection &&
+      document.querySelector(
+        '[data-panel="' + initialSection + '"]'
+      )
+    ) {
+
+      showSection(initialSection);
+
+    } else {
+
+      showSection("personal");
+
+    }
+
+
+    /* =========================================================
+       PERSONAL INFORMATION — EDIT MODE
+    ========================================================= */
+
+    const editProfileButton =
+      document.getElementById("editProfileButton");
+
+    const personalView =
+      document.getElementById("personalView");
+
+    const profileEditForm =
+      document.getElementById("profileEditForm");
+
+    const cancelEdit =
+      document.getElementById("cancelEdit");
+
+
+    const editFirstName =
+      document.getElementById("editFirstName");
+
+    const editLastName =
+      document.getElementById("editLastName");
+
+    const editEmail =
+      document.getElementById("editEmail");
+
+    const editMobile =
+      document.getElementById("editMobile");
+
+    const editDob =
+      document.getElementById("editDob");
+
+    const editGender =
+      document.getElementById("editGender");
+
+
+    /* Open edit mode */
+
+    editProfileButton.addEventListener(
+      "click",
+      () => {
+
+        personalView.classList.add("hidden");
+
+        profileEditForm.classList.add("show");
+
+        editProfileButton.style.display = "none";
+
+      }
+    );
+
+
+    /* Cancel */
+
+    cancelEdit.addEventListener(
+      "click",
+      () => {
+
+        profileEditForm.classList.remove("show");
+
+        personalView.classList.remove("hidden");
+
+        editProfileButton.style.display = "";
+
+      }
+    );
+
+
+    /* Save */
+
+    profileEditForm.addEventListener(
+      "submit",
+      event => {
+
+        event.preventDefault();
+
+
+        const firstName =
+          editFirstName.value.trim();
+
+        const lastName =
+          editLastName.value.trim();
+
+        const email =
+          editEmail.value.trim();
+
+        const mobile =
+          editMobile.value.trim();
+
+        const dob =
+          editDob.value;
+
+        const gender =
+          editGender.value;
+
+
+        /* Update visible information */
+
+        document.getElementById(
+          "displayName"
+        ).textContent =
+          (
+            firstName +
+            " " +
+            lastName
+          ).trim() || "Riyaz";
+
+
+        document.getElementById(
+          "displayEmail"
+        ).textContent =
+          email || "—";
+
+
+        document.getElementById(
+          "displayMobile"
+        ).textContent =
+          mobile || "—";
+
+
+        document.getElementById(
+          "viewFirstName"
+        ).textContent =
+          firstName || "—";
+
+
+        document.getElementById(
+          "viewLastName"
+        ).textContent =
+          lastName || "—";
+
+
+        document.getElementById(
+          "viewEmail"
+        ).textContent =
+          email || "—";
+
+
+        document.getElementById(
+          "viewMobile"
+        ).textContent =
+          mobile || "—";
+
+
+        document.getElementById(
+          "viewDob"
+        ).textContent =
+          dob || "—";
+
+
+        document.getElementById(
+          "viewGender"
+        ).textContent =
+          gender || "—";
+
+
+        /* Return to normal view */
+
+        profileEditForm.classList.remove("show");
+
+        personalView.classList.remove("hidden");
+
+        editProfileButton.style.display = "";
+
+
+        /* Save locally */
+
+        const profileData = {
+          firstName,
+          lastName,
+          email,
+          mobile,
+          dob,
+          gender
+        };
+
+        localStorage.setItem(
+          "shopora_profile",
+          JSON.stringify(profileData)
+        );
+
+      }
+    );
+
+
+    /* =========================================================
+       LOAD SAVED PROFILE
+    ========================================================= */
+
+    try {
+
+      const saved =
+        JSON.parse(
+          localStorage.getItem("shopora_profile")
+        );
+
+
+      if (saved) {
+
+        editFirstName.value =
+          saved.firstName || "";
+
+        editLastName.value =
+          saved.lastName || "";
+
+        editEmail.value =
+          saved.email || "";
+
+        editMobile.value =
+          saved.mobile || "";
+
+        editDob.value =
+          saved.dob || "";
+
+        editGender.value =
+          saved.gender || "";
+
+
+        document.getElementById(
+          "displayName"
+        ).textContent =
+          (
+            saved.firstName +
+            " " +
+            saved.lastName
+          ).trim() || "Riyaz";
+
+
+        document.getElementById(
+          "displayEmail"
+        ).textContent =
+          saved.email || "—";
+
+
+        document.getElementById(
+          "displayMobile"
+        ).textContent =
+          saved.mobile || "—";
+
+
+        document.getElementById(
+          "viewFirstName"
+        ).textContent =
+          saved.firstName || "—";
+
+
+        document.getElementById(
+          "viewLastName"
+        ).textContent =
+          saved.lastName || "—";
+
+
+        document.getElementById(
+          "viewEmail"
+        ).textContent =
+          saved.email || "—";
+
+
+        document.getElementById(
+          "viewMobile"
+        ).textContent =
+          saved.mobile || "—";
+
+
+        document.getElementById(
+          "viewDob"
+        ).textContent =
+          saved.dob || "—";
+
+
+        document.getElementById(
+          "viewGender"
+        ).textContent =
+          saved.gender || "—";
+
+      }
+
+    } catch (error) {
+
+      console.log(
+        "Profile data could not be loaded."
+      );
+
+    }
+
+
+    /* =========================================================
+       LOGOUT
+    ========================================================= */
+
+    document
+      .getElementById("logoutButton")
+      .addEventListener(
+        "click",
+        () => {
+
+          const confirmLogout =
+            confirm(
+              "Are you sure you want to logout?"
+            );
+
+          if (confirmLogout) {
+
+            localStorage.removeItem(
+              "shopora_profile"
+            );
+
+            window.location.href =
+              "../index.html";
+
+          }
+
         }
-
-        field.disabled = true;
-
-      });
-
-      saveArea.style.display = "none";
-
-      editBtn.style.display = "block";
-
-      savedMessage.style.display = "none";
-
-    });
-
-
-    /* SAVE */
-
-    form.addEventListener("submit", event => {
-
-      event.preventDefault();
-
-      fields.forEach(field => {
-        field.disabled = true;
-      });
-
-      saveArea.style.display = "none";
-
-      editBtn.style.display = "block";
-
-      savedMessage.style.display = "block";
-
-      setTimeout(() => {
-
-        savedMessage.style.display = "none";
-
-      }, 3500);
-
-    });
+      );
 
   </script>
 
