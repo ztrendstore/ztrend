@@ -2467,24 +2467,31 @@ menuButtons.forEach(button => {
 
     /* Open section directly from URL hash */
 
-    const initialSection =
-      window.location.hash.replace("#", "");
+   /* =========================================================
+   INITIAL ACCOUNT PAGE
+========================================================= */
 
+if (window.innerWidth > 600) {
 
-    if (
-      initialSection &&
-      document.querySelector(
-        '[data-panel="' + initialSection + '"]'
-      )
-    ) {
+  const initialSection =
+    window.location.hash.replace("#", "");
 
-      showSection(initialSection);
+  if (
+    initialSection &&
+    document.querySelector(
+      '[data-panel="' + initialSection + '"]'
+    )
+  ) {
 
-    } else {
+    showSection(initialSection);
 
-      showSection("personal");
+  } else {
 
-    }
+    showSection("personal");
+
+  }
+
+}
 
 
     /* =========================================================
