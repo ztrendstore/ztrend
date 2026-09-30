@@ -2395,16 +2395,74 @@
 
     }
 
+/* =========================================================
+   ACCOUNT PAGE ROUTING
+   MOBILE = NEW PAGE
+   DESKTOP = EXISTING SAME-PAGE BEHAVIOUR
+========================================================= */
 
-    menuButtons.forEach(button => {
+const mobileAccountRoutes = {
 
-      button.addEventListener("click", () => {
+  personal: "personal-information.html",
 
-        showSection(button.dataset.section);
+  orders: "orders.html",
 
-      });
+  tracking: "track-order.html",
 
-    });
+  wishlist: "wishlist.html",
+
+  reviews: "reviews.html",
+
+  addresses: "addresses.html",
+
+  payments: "payment-methods.html",
+
+  coupons: "coupons.html",
+
+  support: "support.html",
+
+  settings: "settings.html"
+
+};
+
+
+menuButtons.forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    const section = button.dataset.section;
+
+
+    /* =========================================
+       MOBILE
+       Open a completely separate HTML page
+    ========================================= */
+
+    if (window.innerWidth <= 600) {
+
+      const page = mobileAccountRoutes[section];
+
+      if (page) {
+
+        window.location.href = page;
+
+      }
+
+      return;
+
+    }
+
+
+    /* =========================================
+       DESKTOP
+       Keep existing behaviour exactly same
+    ========================================= */
+
+    showSection(section);
+
+  });
+
+});
 
 
     /* Open section directly from URL hash */
