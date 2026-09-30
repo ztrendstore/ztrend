@@ -1,1 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>My Account | Shopora</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #f5f6f4;
+      color: #111;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .account-page {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 40px 24px 70px;
+    }
+
+    .account-heading {
+      margin-bottom: 28px;
+    }
+
+    .account-heading small {
+      display: block;
+      font-size: 12px;
+      letter-spacing: 2px;
+      font-weight: 700;
+      color: #777;
+      margin-bottom: 8px;
+    }
+
+    .account-heading h1 {
+      margin: 0;
+      font-size: 36px;
+      letter-spacing: -1px;
+    }
+
+    .account-layout {
+      display: grid;
+      grid-template-columns: 290px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* SIDEBAR */
+
+    .account-sidebar {
+      background: #111;
+      color: #fff;
+      border-radius: 18px;
+      padding: 24px;
+      position: sticky;
+      top: 24px;
+    }
+
+    .profile-mini {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding-bottom: 22px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+    }
+
+    .profile-avatar {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #222, #555);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 21px;
+      font-weight: 700;
+      border: 1px solid rgba(255,255,255,.18);
+    }
+
+    .profile-mini strong {
+      display: block;
+      font-size: 15px;
+      margin-bottom: 5px;
+    }
+
+    .profile-mini span {
+      color: #aaa;
+      font-size: 12px;
+    }
+
+    .account-menu-title {
+      font-size: 10px;
+      letter-spacing: 1.8px;
+      color: #777;
+      margin: 20px 0 9px;
+      font-weight: 700;
+    }
+
+    .account-menu a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-decoration: none;
+      color: #d8d8d8;
+      padding: 11px 10px;
+      border-radius: 9px;
+      font-size: 14px;
+      transition: .2s;
+    }
+
+    .account-menu a:hover,
+    .account-menu a.active {
+      background: rgba(255,255,255,.08);
+      color: #8ee000;
+    }
+
+    .account-menu a span {
+      color: #666;
+      font-size: 12px;
+    }
+
+    .logout {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,.1);
+    }
+
+    .logout a {
+      color: #ff5555;
+    }
+
+    /* MAIN */
+
+    .account-main {
+      display: grid;
+      gap: 20px;
+    }
+
+    .profile-card {
+      background: #fff;
+      border: 1px solid #e7e8e5;
+      border-radius: 18px;
+      padding: 28px;
+    }
+
+    .profile-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .profile-main-info {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .large-avatar {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #151515, #555);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      font-weight: 700;
+    }
+
+    .profile-main-info h2 {
+      margin: 0 0 7px;
+      font-size: 24px;
+    }
+
+    .profile-main-info p {
+      margin: 4px 0;
+      color: #777;
+      font-size: 14px;
+    }
+
+    .edit-btn {
+      border: 1px solid #111;
+      background: #111;
+      color: #fff;
+      padding: 11px 18px;
+      border-radius: 9px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .edit-btn:hover {
+      background: #8ee000;
+      border-color: #8ee000;
+      color: #111;
+    }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 1.8px;
+      font-weight: 700;
+      color: #777;
+      margin-bottom: 12px;
+    }
+
+    /* QUICK ACTIONS */
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .quick-card {
+      background: #fff;
+      border: 1px solid #e7e8e5;
+      border-radius: 15px;
+      padding: 20px;
+      text-decoration: none;
+      color: #111;
+      transition: .2s;
+    }
+
+    .quick-card:hover {
+      transform: translateY(-2px);
+      border-color: #8ee000;
+    }
+
+    .quick-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: #f1f3ef;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      font-size: 18px;
+    }
+
+    .quick-card strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    .quick-card span {
+      font-size: 12px;
+      color: #888;
+    }
+
+    /* ACCOUNT OPTIONS */
+
+    .options-card {
+      background: #fff;
+      border: 1px solid #e7e8e5;
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 22px;
+      border-bottom: 1px solid #eee;
+      text-decoration: none;
+      color: #111;
+      transition: .2s;
+    }
+
+    .option:last-child {
+      border-bottom: 0;
+    }
+
+    .option:hover {
+      background: #f8faf6;
+    }
+
+    .option-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .option-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: #f2f3f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+    }
+
+    .option strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .option small {
+      color: #888;
+      font-size: 12px;
+    }
+
+    .arrow {
+      color: #999;
+      font-size: 18px;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 800px) {
+
+      .account-page {
+        padding: 25px 15px 50px;
+      }
+
+      .account-heading h1 {
+        font-size: 28px;
+      }
+
+      .account-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .account-sidebar {
+        position: static;
+        padding: 20px;
+      }
+
+      .account-menu {
+        display: none;
+      }
+
+      .profile-card {
+        padding: 20px;
+      }
+
+      .profile-card-top {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .profile-main-info {
+        width: 100%;
+      }
+
+      .large-avatar {
+        width: 68px;
+        height: 68px;
+        font-size: 24px;
+        flex-shrink: 0;
+      }
+
+      .profile-main-info h2 {
+        font-size: 20px;
+      }
+
+      .edit-btn {
+        width: 100%;
+      }
+
+      .quick-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .quick-card {
+        padding: 16px;
+      }
+    }
+
+    @media (max-width: 430px) {
+
+      .account-heading {
+        margin-bottom: 20px;
+      }
+
+      .account-heading h1 {
+        font-size: 25px;
+      }
+
+      .profile-main-info {
+        gap: 14px;
+      }
+
+      .quick-grid {
+        gap: 10px;
+      }
+
+      .quick-card {
+        padding: 14px;
+      }
+
+      .option {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="account-page">
+
+    <div class="account-heading">
+      <small>SHOPORA ACCOUNT</small>
+      <h1>My Account</h1>
+    </div>
+
+    <div class="account-layout">
+
+      <!-- SIDEBAR -->
+      <aside class="account-sidebar">
+
+        <div class="profile-mini">
+          <div class="profile-avatar">R</div>
+
+          <div>
+            <strong>Riyaz</strong>
+            <span>My Account</span>
+          </div>
+        </div>
+
+        <div class="account-menu-title">MY SHOPPING</div>
+
+        <nav class="account-menu">
+          <a href="#">My Orders <span>›</span></a>
+          <a href="#">Track Order <span>›</span></a>
+          <a href="wishlist.html">Wishlist <span>›</span></a>
+          <a href="#">My Reviews <span>›</span></a>
+        </nav>
+
+        <div class="account-menu-title">MY ACCOUNT</div>
+
+        <nav class="account-menu">
+          <a href="#" class="active">Personal Information <span>›</span></a>
+          <a href="#">Addresses <span>›</span></a>
+          <a href="#">Payment Methods <span>›</span></a>
+          <a href="#">Coupons & Offers <span>›</span></a>
+        </nav>
+
+        <div class="account-menu-title">SUPPORT</div>
+
+        <nav class="account-menu">
+          <a href="#">Help & Support <span>›</span></a>
+          <a href="#">Contact Us <span>›</span></a>
+        </nav>
+
+        <div class="logout">
+          <a href="../index.html">Logout</a>
+        </div>
+
+      </aside>
+
+
+      <!-- MAIN -->
+      <section class="account-main">
+
+        <!-- PROFILE -->
+        <div class="profile-card">
+
+          <div class="profile-card-top">
+
+            <div class="profile-main-info">
+
+              <div class="large-avatar">R</div>
+
+              <div>
+                <h2>Riyaz</h2>
+                <p>riyaz@example.com</p>
+                <p>+91 XXXXX XXXXX</p>
+              </div>
+
+            </div>
+
+            <button class="edit-btn">
+              Edit Profile
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- QUICK ACTIONS -->
+
+        <div>
+
+          <div class="section-label">
+            QUICK ACCESS
+          </div>
+
+          <div class="quick-grid">
+
+            <a href="#" class="quick-card">
+              <div class="quick-icon">📦</div>
+              <strong>My Orders</strong>
+              <span>View your orders</span>
+            </a>
+
+            <a href="#" class="quick-card">
+              <div class="quick-icon">🚚</div>
+              <strong>Track Order</strong>
+              <span>Track your delivery</span>
+            </a>
+
+            <a href="wishlist.html" class="quick-card">
+              <div class="quick-icon">♡</div>
+              <strong>Wishlist</strong>
+              <span>Saved products</span>
+            </a>
+
+            <a href="#" class="quick-card">
+              <div class="quick-icon">★</div>
+              <strong>My Reviews</strong>
+              <span>Your product reviews</span>
+            </a>
+
+          </div>
+
+        </div>
+
+
+        <!-- ACCOUNT OPTIONS -->
+
+        <div>
+
+          <div class="section-label">
+            ACCOUNT SETTINGS
+          </div>
+
+          <div class="options-card">
+
+            <a href="#" class="option">
+
+              <div class="option-left">
+                <div class="option-icon">👤</div>
+
+                <div>
+                  <strong>Personal Information</strong>
+                  <small>Name, email and mobile number</small>
+                </div>
+              </div>
+
+              <span class="arrow">›</span>
+
+            </a>
+
+
+            <a href="#" class="option">
+
+              <div class="option-left">
+                <div class="option-icon">⌖</div>
+
+                <div>
+                  <strong>My Addresses</strong>
+                  <small>Manage delivery addresses</small>
+                </div>
+              </div>
+
+              <span class="arrow">›</span>
+
+            </a>
+
+
+            <a href="#" class="option">
+
+              <div class="option-left">
+                <div class="option-icon">▣</div>
+
+                <div>
+                  <strong>Payment Methods</strong>
+                  <small>Manage saved payment options</small>
+                </div>
+              </div>
+
+              <span class="arrow">›</span>
+
+            </a>
+
+
+            <a href="#" class="option">
+
+              <div class="option-left">
+                <div class="option-icon">%</div>
+
+                <div>
+                  <strong>Coupons & Offers</strong>
+                  <small>View available discounts</small>
+                </div>
+              </div>
+
+              <span class="arrow">›</span>
+
+            </a>
+
+
+            <a href="#" class="option">
+
+              <div class="option-left">
+                <div class="option-icon">?</div>
+
+                <div>
+                  <strong>Help & Support</strong>
+                  <small>Get help with your order</small>
+                </div>
+              </div>
+
+              <span class="arrow">›</span>
+
+            </a>
+
+
+            <a href="#" class="option">
+
+              <div class="option-left">
+                <div class="option-icon">⚙</div>
+
+                <div>
+                  <strong>Settings</strong>
+                  <small>Manage your account preferences</small>
+                </div>
+              </div>
+
+              <span class="arrow">›</span>
+
+            </a>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+</body>
+</html>
