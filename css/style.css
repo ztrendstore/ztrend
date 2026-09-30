@@ -1262,3 +1262,301 @@ a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}b
   }
 
 }
+/* =========================================================
+   MOBILE ACCOUNT — FINAL RESPONSIVE FIX
+   DESKTOP IS NOT TOUCHED
+========================================================= */
+
+@media (max-width: 560px) {
+
+  /* Page */
+  .account-page {
+    width: 100%;
+    padding: 16px 12px 40px;
+  }
+
+  .page-heading {
+    margin-bottom: 16px;
+  }
+
+  .page-heading h1 {
+    font-size: 28px;
+  }
+
+
+  /* =========================
+     GLASS ACCOUNT CARD
+  ========================= */
+
+  .account-sidebar {
+    position: relative !important;
+    top: auto !important;
+
+    width: 100%;
+
+    padding: 14px;
+
+    border-radius: 20px;
+
+    background:
+      linear-gradient(
+        145deg,
+        rgba(20,20,20,.88),
+        rgba(5,5,5,.80)
+      ) !important;
+
+    border: 1px solid rgba(255,255,255,.12) !important;
+
+    box-shadow:
+      0 16px 40px rgba(0,0,0,.18),
+      inset 0 1px 0 rgba(255,255,255,.08) !important;
+
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+
+
+  /* =========================
+     PROFILE
+  ========================= */
+
+  .mini-profile {
+    padding: 3px 3px 14px;
+  }
+
+  .avatar {
+    width: 46px;
+    height: 46px;
+    flex-basis: 46px;
+  }
+
+
+  /* =========================
+     MENU — SINGLE COLUMN
+  ========================= */
+
+  .account-menu {
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    gap: 2px !important;
+
+    width: 100%;
+  }
+
+  .account-menu button {
+    width: 100% !important;
+
+    min-height: 40px;
+
+    display: flex !important;
+    align-items: center;
+
+    padding: 8px 9px;
+
+    border-radius: 9px;
+
+    font-size: 11.5px;
+  }
+
+  .menu-icon {
+    width: 17px;
+    min-width: 17px;
+  }
+
+  .menu-text {
+    flex: 1;
+  }
+
+  .menu-arrow {
+    margin-left: auto;
+  }
+
+
+  /* =========================
+     CONTENT CARD
+  ========================= */
+
+  .panel {
+    width: 100%;
+
+    border-radius: 18px;
+
+    margin-top: 0;
+  }
+
+  .panel-head {
+    display: block;
+
+    padding: 20px 17px 17px;
+  }
+
+  .panel-head h2 {
+    font-size: 19px;
+  }
+
+  .panel-head p {
+    font-size: 10.5px;
+  }
+
+
+  /* Edit button */
+  .edit-button {
+    width: 100%;
+
+    margin-top: 13px;
+
+    height: 40px;
+  }
+
+
+  /* =========================
+     PROFILE INFORMATION
+  ========================= */
+
+  .profile-body {
+    padding: 18px 16px 20px;
+  }
+
+  .profile-top {
+    padding: 13px;
+
+    margin-bottom: 14px;
+
+    border-radius: 12px;
+  }
+
+
+  /* Information becomes clean
+     ecommerce-style rows */
+
+  .info-grid {
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    gap: 0 !important;
+
+    overflow: hidden;
+
+    border: 1px solid #e7e7e4;
+
+    border-radius: 11px;
+  }
+
+  .info {
+    width: 100%;
+
+    min-height: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 10px 13px;
+
+    border: 0 !important;
+
+    border-bottom: 1px solid #eeeeec !important;
+
+    border-radius: 0 !important;
+  }
+
+  .info:last-child {
+    border-bottom: 0 !important;
+  }
+
+  .info-label {
+    margin: 0;
+
+    flex: 0 0 38%;
+
+    font-size: 8px;
+  }
+
+  .info-value {
+    flex: 1;
+
+    text-align: right;
+
+    font-size: 11px;
+
+    word-break: break-word;
+  }
+
+
+  /* =========================
+     EDIT FORM
+  ========================= */
+
+  .form-grid {
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    gap: 12px;
+  }
+
+  .field input,
+  .field select {
+    height: 42px;
+  }
+
+  .form-buttons {
+    display: flex;
+
+    flex-direction: column-reverse;
+
+    gap: 7px;
+  }
+
+  .cancel,
+  .save {
+    width: 100%;
+
+    height: 40px;
+  }
+
+
+  /* =========================
+     OTHER SECTIONS
+  ========================= */
+
+  .panel-body {
+    padding: 18px 16px 20px;
+  }
+
+  .empty {
+    padding: 42px 12px;
+  }
+
+  .list-row {
+    padding: 13px;
+  }
+
+}
+
+
+/* Very small phones */
+
+@media (max-width: 360px) {
+
+  .account-page {
+    padding-left: 9px;
+    padding-right: 9px;
+  }
+
+  .account-sidebar {
+    padding: 12px;
+  }
+
+  .account-menu button {
+    min-height: 38px;
+
+    font-size: 10.5px;
+  }
+
+}
