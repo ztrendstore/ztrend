@@ -1560,3 +1560,78 @@ a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}b
   }
 
 }
+/* =========================================================
+   MOBILE ACCOUNT — SEPARATE PAGES
+   DESKTOP IS NOT CHANGED
+========================================================= */
+
+@media (max-width: 600px) {
+
+  /* Mobile profile becomes the account menu page */
+  .account-content {
+    display: none !important;
+  }
+
+  .account-page {
+    width: 100%;
+    min-height: 100vh;
+    padding: 18px 12px 30px;
+  }
+
+  .account-layout {
+    display: block;
+  }
+
+  .account-sidebar {
+    width: 100%;
+    min-height: calc(100vh - 150px);
+    position: relative;
+    top: auto;
+  }
+
+  /* One option per row on phone */
+  .account-menu {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .account-menu button {
+    min-height: 45px;
+    padding: 10px 11px;
+    font-size: 12px;
+  }
+
+  .menu-icon {
+    width: 18px;
+    height: 18px;
+    flex-basis: 18px;
+  }
+
+  .menu-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .menu-arrow {
+    font-size: 17px;
+  }
+
+  /* Personal Information should not look selected
+     because mobile opens a separate page */
+  .account-menu button.active {
+    background: transparent;
+    border-color: transparent;
+    color: rgba(255,255,255,.68);
+  }
+
+  .account-menu button.active .menu-arrow {
+    color: rgba(255,255,255,.25);
+  }
+
+  .account-menu button:hover {
+    background: rgba(142,224,0,.08);
+    border-color: rgba(142,224,0,.12);
+    color: #8ee000;
+  }
+
+}
