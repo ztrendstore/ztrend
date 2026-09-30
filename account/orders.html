@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>My Orders | Shopora</title>
+
+  <link
+    rel="stylesheet"
+    href="../css/style.css"
+  >
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+
+      background:
+        radial-gradient(
+          circle at 90% 0%,
+          rgba(142,224,0,.07),
+          transparent 35%
+        ),
+        #f5f6f4;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      color: #111;
+    }
+
+    .orders-page {
+      width: min(760px, calc(100% - 24px));
+      margin: auto;
+      padding: 20px 0 40px;
+    }
+
+    /* BACK */
+
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+
+      margin-bottom: 18px;
+      padding: 9px 12px;
+
+      border-radius: 9px;
+
+      border: 1px solid #dedfdc;
+
+      background: rgba(255,255,255,.72);
+
+      color: #333;
+      text-decoration: none;
+
+      font-size: 12px;
+      font-weight: 600;
+
+      backdrop-filter: blur(12px);
+    }
+
+    /* MAIN CARD */
+
+    .orders-card {
+
+      overflow: hidden;
+
+      border-radius: 22px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(35,35,35,.94),
+          rgba(7,7,7,.90)
+        );
+
+      border:
+        1px solid rgba(255,255,255,.13);
+
+      box-shadow:
+        0 20px 50px rgba(0,0,0,.18),
+        inset 0 1px 0 rgba(255,255,255,.08);
+
+      color: #fff;
+    }
+
+    /* HEADER */
+
+    .orders-head {
+      padding: 22px 20px;
+
+      border-bottom:
+        1px solid rgba(255,255,255,.10);
+    }
+
+    .orders-label {
+      margin-bottom: 6px;
+
+      color: #8ee000;
+
+      font-size: 9px;
+      font-weight: 700;
+
+      letter-spacing: 2px;
+    }
+
+    .orders-head h1 {
+      margin: 0;
+
+      font-size: 23px;
+      letter-spacing: -.5px;
+    }
+
+    .orders-head p {
+      margin: 7px 0 0;
+
+      color: rgba(255,255,255,.50);
+
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    /* BODY */
+
+    .orders-body {
+      padding: 18px;
+    }
+
+    /* ORDER */
+
+    .order-card {
+
+      margin-bottom: 12px;
+      padding: 15px;
+
+      border-radius: 14px;
+
+      border:
+        1px solid rgba(255,255,255,.09);
+
+      background:
+        rgba(255,255,255,.045);
+    }
+
+    .order-top {
+
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+
+      gap: 10px;
+
+      margin-bottom: 13px;
+    }
+
+    .order-number {
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .order-date {
+      margin-top: 4px;
+
+      color: rgba(255,255,255,.42);
+
+      font-size: 9px;
+    }
+
+    /* STATUS */
+
+    .order-status {
+
+      padding: 5px 8px;
+
+      border-radius: 20px;
+
+      background:
+        rgba(142,224,0,.10);
+
+      border:
+        1px solid rgba(142,224,0,.18);
+
+      color: #8ee000;
+
+      font-size: 9px;
+      font-weight: 700;
+    }
+
+    /* PRODUCT */
+
+    .product-row {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 12px;
+
+      padding: 11px 0;
+
+      border-top:
+        1px solid rgba(255,255,255,.07);
+    }
+
+    .product-image {
+
+      width: 58px;
+      height: 58px;
+
+      flex: 0 0 58px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 10px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #303030,
+          #151515
+        );
+
+      color: rgba(255,255,255,.35);
+
+      font-size: 9px;
+    }
+
+    .product-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .product-info strong {
+
+      display: block;
+
+      margin-bottom: 4px;
+
+      font-size: 12px;
+
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .product-info span {
+
+      display: block;
+
+      color: rgba(255,255,255,.45);
+
+      font-size: 9px;
+    }
+
+    .product-price {
+
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* BOTTOM */
+
+    .order-bottom {
+
+      display: flex;
+
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 10px;
+
+      margin-top: 11px;
+      padding-top: 12px;
+
+      border-top:
+        1px solid rgba(255,255,255,.07);
+    }
+
+    .order-total {
+
+      color: rgba(255,255,255,.55);
+
+      font-size: 10px;
+    }
+
+    .order-total strong {
+
+      color: #fff;
+
+      font-size: 13px;
+
+      margin-left: 4px;
+    }
+
+    .track-button {
+
+      min-height: 36px;
+
+      padding: 0 13px;
+
+      border-radius: 8px;
+
+      border:
+        1px solid rgba(142,224,0,.35);
+
+      background:
+        rgba(142,224,0,.08);
+
+      color: #8ee000;
+
+      font-size: 10px;
+      font-weight: 700;
+
+      text-decoration: none;
+
+      display: inline-flex;
+
+      align-items: center;
+      justify-content: center;
+    }
+
+    .track-button:hover {
+
+      background: #8ee000;
+
+      color: #111;
+    }
+
+    /* EMPTY */
+
+    .empty-orders {
+
+      padding: 45px 20px;
+
+      text-align: center;
+
+      color: rgba(255,255,255,.45);
+
+    }
+
+    .empty-orders-icon {
+
+      width: 55px;
+      height: 55px;
+
+      margin: auto auto 14px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 15px;
+
+      background:
+        rgba(255,255,255,.05);
+
+      font-size: 22px;
+    }
+
+    .empty-orders h3 {
+
+      margin: 0 0 6px;
+
+      color: #fff;
+
+      font-size: 16px;
+    }
+
+    .empty-orders p {
+
+      margin: 0;
+
+      font-size: 10px;
+
+      line-height: 1.5;
+    }
+
+    @media (min-width: 601px) {
+
+      .orders-page {
+        padding-top: 35px;
+      }
+
+    }
+
+    @media (max-width: 420px) {
+
+      .orders-page {
+        width: calc(100% - 18px);
+      }
+
+      .orders-body {
+        padding: 13px;
+      }
+
+      .order-card {
+        padding: 13px;
+      }
+
+      .product-image {
+        width: 52px;
+        height: 52px;
+        flex-basis: 52px;
+      }
+
+      .product-info strong {
+        font-size: 11px;
+      }
+
+      .order-total {
+        font-size: 9px;
+      }
+
+      .track-button {
+        padding: 0 10px;
+        font-size: 9px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+  <main class="orders-page">
+
+    <!-- BACK -->
+
+    <a
+      href="profile.html"
+      class="back-button"
+    >
+      ← Back
+    </a>
+
+
+    <!-- ORDERS -->
+
+    <section class="orders-card">
+
+      <header class="orders-head">
+
+        <div class="orders-label">
+          MY SHOPPING
+        </div>
+
+        <h1>
+          My Orders
+        </h1>
+
+        <p>
+          View your recent orders and track their delivery status.
+        </p>
+
+      </header>
+
+
+      <div class="orders-body">
+
+
+        <!-- ORDER 1 -->
+
+        <article class="order-card">
+
+          <div class="order-top">
+
+            <div>
+
+              <div class="order-number">
+                Order #SZ100284
+              </div>
+
+              <div class="order-date">
+                Placed on 30 Sep 2026
+              </div>
+
+            </div>
+
+            <span class="order-status">
+              SHIPPED
+            </span>
+
+          </div>
+
+
+          <div class="product-row">
+
+            <div class="product-image">
+              PRODUCT
+            </div>
+
+            <div class="product-info">
+
+              <strong>
+                Premium Casual T-Shirt
+              </strong>
+
+              <span>
+                Size: L &nbsp; • &nbsp; Qty: 1
+              </span>
+
+            </div>
+
+            <div class="product-price">
+              ₹899
+            </div>
+
+          </div>
+
+
+          <div class="order-bottom">
+
+            <div class="order-total">
+              Total
+              <strong>₹899</strong>
+            </div>
+
+            <a
+              href="track-order.html"
+              class="track-button"
+            >
+              Track Order
+            </a>
+
+          </div>
+
+        </article>
+
+
+        <!-- ORDER 2 -->
+
+        <article class="order-card">
+
+          <div class="order-top">
+
+            <div>
+
+              <div class="order-number">
+                Order #SZ100271
+              </div>
+
+              <div class="order-date">
+                Placed on 26 Sep 2026
+              </div>
+
+            </div>
+
+            <span class="order-status">
+              DELIVERED
+            </span>
+
+          </div>
+
+
+          <div class="product-row">
+
+            <div class="product-image">
+              PRODUCT
+            </div>
+
+            <div class="product-info">
+
+              <strong>
+                Classic Everyday Sneakers
+              </strong>
+
+              <span>
+                Size: 9 &nbsp; • &nbsp; Qty: 1
+              </span>
+
+            </div>
+
+            <div class="product-price">
+              ₹1,499
+            </div>
+
+          </div>
+
+
+          <div class="order-bottom">
+
+            <div class="order-total">
+              Total
+              <strong>₹1,499</strong>
+            </div>
+
+            <a
+              href="track-order.html"
+              class="track-button"
+            >
+              View Order
+            </a>
+
+          </div>
+
+        </article>
+
+
+        <!-- ORDER 3 -->
+
+        <article class="order-card">
+
+          <div class="order-top">
+
+            <div>
+
+              <div class="order-number">
+                Order #SZ100248
+              </div>
+
+              <div class="order-date">
+                Placed on 20 Sep 2026
+              </div>
+
+            </div>
+
+            <span class="order-status">
+              DELIVERED
+            </span>
+
+          </div>
+
+
+          <div class="product-row">
+
+            <div class="product-image">
+              PRODUCT
+            </div>
+
+            <div class="product-info">
+
+              <strong>
+                Urban Crossbody Bag
+              </strong>
+
+              <span>
+                Color: Black &nbsp; • &nbsp; Qty: 1
+              </span>
+
+            </div>
+
+            <div class="product-price">
+              ₹1,199
+            </div>
+
+          </div>
+
+
+          <div class="order-bottom">
+
+            <div class="order-total">
+              Total
+              <strong>₹1,199</strong>
+            </div>
+
+            <a
+              href="track-order.html"
+              class="track-button"
+            >
+              View Order
+            </a>
+
+          </div>
+
+        </article>
+
+
+      </div>
+
+    </section>
+
+  </main>
+
+</body>
+
+</html>
