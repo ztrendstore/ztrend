@@ -4,408 +4,655 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>My Account | Shopora</title>
+  <title>Personal Information | Shopora</title>
 
   <link rel="stylesheet" href="../css/style.css">
 
   <style>
+    /* =====================================================
+       SHOPORA — PERSONAL INFORMATION
+       Standalone account page
+    ===================================================== */
+
     * {
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
-      background: #f5f6f4;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(142,224,0,.06), transparent 30%),
+        #f5f6f4;
       color: #111;
       font-family: Arial, Helvetica, sans-serif;
     }
 
-    .account-page {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 40px 24px 70px;
+    button,
+    input,
+    select {
+      font: inherit;
     }
 
-    .account-heading {
+    /* =====================================================
+       PAGE
+    ===================================================== */
+
+    .profile-page {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 38px 0 70px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #666;
+      text-decoration: none;
+      font-size: 13px;
+      margin-bottom: 28px;
+      transition: .2s ease;
+    }
+
+    .back-link:hover {
+      color: #76bd00;
+    }
+
+    .page-intro {
       margin-bottom: 28px;
     }
 
-    .account-heading small {
+    .page-intro-label {
       display: block;
-      font-size: 12px;
-      letter-spacing: 2px;
-      font-weight: 700;
-      color: #777;
       margin-bottom: 8px;
+      color: #777;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.2px;
     }
 
-    .account-heading h1 {
+    .page-intro h1 {
       margin: 0;
-      font-size: 36px;
-      letter-spacing: -1px;
+      font-size: 38px;
+      line-height: 1.1;
+      letter-spacing: -1.4px;
+      font-weight: 700;
     }
 
-    .account-layout {
+    /* =====================================================
+       MAIN LAYOUT
+    ===================================================== */
+
+    .profile-layout {
       display: grid;
-      grid-template-columns: 290px 1fr;
+      grid-template-columns: 275px minmax(0, 1fr);
       gap: 24px;
       align-items: start;
     }
 
-    /* SIDEBAR */
+    /* =====================================================
+       GLASS PROFILE PANEL
+    ===================================================== */
 
-    .account-sidebar {
-      background: #111;
-      color: #fff;
-      border-radius: 18px;
-      padding: 24px;
+    .profile-glass {
       position: sticky;
       top: 24px;
-    }
+      overflow: hidden;
 
-    .profile-mini {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding-bottom: 22px;
-      margin-bottom: 18px;
-      border-bottom: 1px solid rgba(255,255,255,.12);
-    }
+      padding: 25px;
 
-    .profile-avatar {
-      width: 58px;
-      height: 58px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #222, #555);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 21px;
-      font-weight: 700;
-      border: 1px solid rgba(255,255,255,.18);
-    }
+      border-radius: 22px;
 
-    .profile-mini strong {
-      display: block;
-      font-size: 15px;
-      margin-bottom: 5px;
-    }
+      background:
+        linear-gradient(
+          145deg,
+          rgba(35,35,35,.84),
+          rgba(7,7,7,.72)
+        );
 
-    .profile-mini span {
-      color: #aaa;
-      font-size: 12px;
-    }
+      border: 1px solid rgba(255,255,255,.13);
 
-    .account-menu-title {
-      font-size: 10px;
-      letter-spacing: 1.8px;
-      color: #777;
-      margin: 20px 0 9px;
-      font-weight: 700;
-    }
+      box-shadow:
+        0 22px 55px rgba(0,0,0,.22),
+        inset 0 1px 0 rgba(255,255,255,.09);
 
-    .account-menu a {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      text-decoration: none;
-      color: #d8d8d8;
-      padding: 11px 10px;
-      border-radius: 9px;
-      font-size: 14px;
-      transition: .2s;
-    }
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
 
-    .account-menu a:hover,
-    .account-menu a.active {
-      background: rgba(255,255,255,.08);
-      color: #8ee000;
-    }
-
-    .account-menu a span {
-      color: #666;
-      font-size: 12px;
-    }
-
-    .logout {
-      margin-top: 18px;
-      padding-top: 18px;
-      border-top: 1px solid rgba(255,255,255,.1);
-    }
-
-    .logout a {
-      color: #ff5555;
-    }
-
-    /* MAIN */
-
-    .account-main {
-      display: grid;
-      gap: 20px;
-    }
-
-    .profile-card {
-      background: #fff;
-      border: 1px solid #e7e8e5;
-      border-radius: 18px;
-      padding: 28px;
-    }
-
-    .profile-card-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .profile-main-info {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .large-avatar {
-      width: 88px;
-      height: 88px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #151515, #555);
       color: #fff;
+    }
+
+    .profile-glass::before {
+      content: "";
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      top: -80px;
+      right: -60px;
+      border-radius: 50%;
+      background: rgba(142,224,0,.10);
+      filter: blur(35px);
+      pointer-events: none;
+    }
+
+    .profile-glass-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .avatar {
+      width: 82px;
+      height: 82px;
+
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 30px;
+
+      margin-bottom: 17px;
+
+      border-radius: 50%;
+
+      background:
+        linear-gradient(145deg, #444, #171717);
+
+      border: 1px solid rgba(255,255,255,.16);
+
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.12),
+        0 12px 30px rgba(0,0,0,.25);
+
+      font-size: 29px;
       font-weight: 700;
     }
 
-    .profile-main-info h2 {
-      margin: 0 0 7px;
-      font-size: 24px;
+    .profile-glass h2 {
+      margin: 0 0 6px;
+      font-size: 22px;
+      font-weight: 700;
     }
 
-    .profile-main-info p {
-      margin: 4px 0;
-      color: #777;
-      font-size: 14px;
+    .profile-glass p {
+      margin: 0;
+      color: rgba(255,255,255,.56);
+      font-size: 13px;
+      line-height: 1.55;
     }
+
+    .glass-line {
+      height: 1px;
+      margin: 23px 0 20px;
+      background: rgba(255,255,255,.10);
+    }
+
+    .profile-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,.65);
+      font-size: 12px;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #8ee000;
+      box-shadow: 0 0 12px rgba(142,224,0,.6);
+    }
+
+    /* =====================================================
+       INFORMATION CARD
+    ===================================================== */
+
+    .information-card {
+      overflow: hidden;
+
+      background: rgba(255,255,255,.92);
+
+      border: 1px solid #e5e7e3;
+      border-radius: 22px;
+
+      box-shadow:
+        0 14px 40px rgba(0,0,0,.05);
+    }
+
+    .information-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+
+      padding: 28px 30px 23px;
+
+      border-bottom: 1px solid #ededed;
+    }
+
+    .information-header h2 {
+      margin: 0 0 6px;
+      font-size: 21px;
+    }
+
+    .information-header p {
+      margin: 0;
+      color: #888;
+      font-size: 13px;
+    }
+
+    /* =====================================================
+       EDIT BUTTON
+    ===================================================== */
 
     .edit-btn {
+      flex-shrink: 0;
+
       border: 1px solid #111;
+      border-radius: 9px;
+
       background: #111;
       color: #fff;
+
       padding: 11px 18px;
-      border-radius: 9px;
+
       font-size: 13px;
+      font-weight: 600;
+
       cursor: pointer;
-      transition: .2s;
+
+      transition:
+        background .2s ease,
+        border-color .2s ease,
+        color .2s ease,
+        transform .2s ease;
     }
 
     .edit-btn:hover {
       background: #8ee000;
       border-color: #8ee000;
       color: #111;
+      transform: translateY(-1px);
     }
 
-    .section-label {
-      font-size: 11px;
-      letter-spacing: 1.8px;
-      font-weight: 700;
-      color: #777;
-      margin-bottom: 12px;
+    /* =====================================================
+       FORM
+    ===================================================== */
+
+    .profile-form {
+      padding: 28px 30px 30px;
     }
 
-    /* QUICK ACTIONS */
-
-    .quick-grid {
+    .form-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 21px;
     }
 
-    .quick-card {
+    .field {
+      min-width: 0;
+
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      color: #555;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      height: 48px;
+
+      padding: 0 14px;
+
+      border: 1px solid #dedfdd;
+      border-radius: 10px;
+
+      outline: none;
+
+      background: #f8f9f7;
+      color: #222;
+
+      font-size: 14px;
+
+      transition:
+        border-color .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+    }
+
+    .field input:disabled,
+    .field select:disabled {
+      color: #555;
+      cursor: default;
+      opacity: 1;
+    }
+
+    .field input:not(:disabled),
+    .field select:not(:disabled) {
       background: #fff;
-      border: 1px solid #e7e8e5;
-      border-radius: 15px;
-      padding: 20px;
-      text-decoration: none;
-      color: #111;
-      transition: .2s;
     }
 
-    .quick-card:hover {
-      transform: translateY(-2px);
+    .field input:focus,
+    .field select:focus {
       border-color: #8ee000;
+      box-shadow: 0 0 0 3px rgba(142,224,0,.10);
     }
 
-    .quick-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      background: #f1f3ef;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 14px;
-      font-size: 18px;
+    /* =====================================================
+       SAVE AREA
+    ===================================================== */
+
+    .save-area {
+      display: none;
+
+      justify-content: flex-end;
+      gap: 10px;
+
+      margin-top: 27px;
+      padding-top: 23px;
+
+      border-top: 1px solid #ededed;
     }
 
-    .quick-card strong {
-      display: block;
-      font-size: 14px;
-      margin-bottom: 5px;
+    .cancel-btn,
+    .save-btn {
+      min-height: 42px;
+
+      padding: 0 18px;
+
+      border-radius: 9px;
+
+      font-size: 13px;
+      font-weight: 600;
+
+      cursor: pointer;
     }
 
-    .quick-card span {
-      font-size: 12px;
-      color: #888;
-    }
-
-    /* ACCOUNT OPTIONS */
-
-    .options-card {
+    .cancel-btn {
+      border: 1px solid #ddd;
       background: #fff;
-      border: 1px solid #e7e8e5;
-      border-radius: 18px;
-      overflow: hidden;
+      color: #333;
     }
 
-    .option {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 22px;
-      border-bottom: 1px solid #eee;
-      text-decoration: none;
+    .cancel-btn:hover {
+      background: #f5f5f5;
+    }
+
+    .save-btn {
+      border: 1px solid #111;
+      background: #111;
+      color: #fff;
+    }
+
+    .save-btn:hover {
+      border-color: #8ee000;
+      background: #8ee000;
       color: #111;
-      transition: .2s;
     }
 
-    .option:last-child {
-      border-bottom: 0;
+    /* =====================================================
+       SAVED MESSAGE
+    ===================================================== */
+
+    .saved-message {
+      display: none;
+
+      margin-top: 18px;
+      padding: 12px 14px;
+
+      border: 1px solid rgba(142,224,0,.30);
+      border-radius: 9px;
+
+      background: rgba(142,224,0,.08);
+      color: #4d7500;
+
+      font-size: 13px;
     }
 
-    .option:hover {
-      background: #f8faf6;
-    }
+    /* =====================================================
+       TABLET
+    ===================================================== */
 
-    .option-left {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
+    @media (max-width: 850px) {
 
-    .option-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      background: #f2f3f0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 17px;
-    }
-
-    .option strong {
-      display: block;
-      font-size: 14px;
-      margin-bottom: 4px;
-    }
-
-    .option small {
-      color: #888;
-      font-size: 12px;
-    }
-
-    .arrow {
-      color: #999;
-      font-size: 18px;
-    }
-
-    /* MOBILE */
-
-    @media (max-width: 800px) {
-
-      .account-page {
-        padding: 25px 15px 50px;
+      .profile-page {
+        width: min(100% - 30px, 700px);
+        padding-top: 28px;
       }
 
-      .account-heading h1 {
-        font-size: 28px;
-      }
-
-      .account-layout {
+      .profile-layout {
         grid-template-columns: 1fr;
       }
 
-      .account-sidebar {
-        position: static;
-        padding: 20px;
+      .profile-glass {
+        position: relative;
+        top: auto;
       }
 
-      .account-menu {
-        display: none;
+      .avatar {
+        width: 70px;
+        height: 70px;
+        font-size: 25px;
+      }
+    }
+
+    /* =====================================================
+       MOBILE
+    ===================================================== */
+
+    @media (max-width: 600px) {
+
+      body {
+        background:
+          radial-gradient(
+            circle at 90% 0%,
+            rgba(142,224,0,.07),
+            transparent 35%
+          ),
+          #f5f6f4;
       }
 
-      .profile-card {
-        padding: 20px;
-      }
-
-      .profile-card-top {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .profile-main-info {
+      .profile-page {
         width: 100%;
+        padding: 22px 14px 45px;
       }
 
-      .large-avatar {
-        width: 68px;
-        height: 68px;
-        font-size: 24px;
-        flex-shrink: 0;
+      .back-link {
+        margin-bottom: 22px;
+        padding-left: 2px;
       }
 
-      .profile-main-info h2 {
+      .page-intro {
+        margin-bottom: 20px;
+        padding: 0 3px;
+      }
+
+      .page-intro-label {
+        font-size: 10px;
+        letter-spacing: 2px;
+      }
+
+      .page-intro h1 {
+        font-size: 29px;
+        letter-spacing: -1px;
+      }
+
+      .profile-layout {
+        gap: 15px;
+      }
+
+      /* DARK GLASS PANEL */
+
+      .profile-glass {
+        padding: 20px;
+
+        border-radius: 20px;
+
+        background:
+          linear-gradient(
+            145deg,
+            rgba(30,30,30,.76),
+            rgba(5,5,5,.67)
+          );
+
+        border: 1px solid rgba(255,255,255,.14);
+
+        box-shadow:
+          0 18px 45px rgba(0,0,0,.20),
+          inset 0 1px 0 rgba(255,255,255,.09);
+
+        backdrop-filter: blur(24px) saturate(125%);
+        -webkit-backdrop-filter: blur(24px) saturate(125%);
+      }
+
+      .profile-glass::after {
+        content: "";
+        position: absolute;
+        inset: 1px;
+
+        border-radius: 19px;
+
+        background:
+          linear-gradient(
+            135deg,
+            rgba(255,255,255,.05),
+            transparent 35%
+          );
+
+        pointer-events: none;
+      }
+
+      .profile-glass-content {
+        position: relative;
+        z-index: 2;
+      }
+
+      .avatar {
+        width: 64px;
+        height: 64px;
+
+        margin-bottom: 13px;
+
+        font-size: 23px;
+      }
+
+      .profile-glass h2 {
         font-size: 20px;
+        margin-bottom: 4px;
+      }
+
+      .profile-glass p {
+        font-size: 12px;
+      }
+
+      .glass-line {
+        margin: 18px 0 16px;
+      }
+
+      .profile-status {
+        font-size: 11px;
+      }
+
+      /* INFORMATION CARD */
+
+      .information-card {
+        border-radius: 19px;
+      }
+
+      .information-header {
+        display: block;
+        padding: 21px 18px 18px;
+      }
+
+      .information-header h2 {
+        font-size: 19px;
+        margin-bottom: 5px;
+      }
+
+      .information-header p {
+        font-size: 12px;
+        line-height: 1.5;
+        margin-bottom: 16px;
       }
 
       .edit-btn {
         width: 100%;
+        min-height: 45px;
       }
 
-      .quick-grid {
-        grid-template-columns: repeat(2, 1fr);
+      .profile-form {
+        padding: 20px 18px 21px;
       }
 
-      .quick-card {
-        padding: 16px;
+      .form-grid {
+        grid-template-columns: 1fr;
+        gap: 17px;
+      }
+
+      .field.full {
+        grid-column: auto;
+      }
+
+      .field label {
+        font-size: 11px;
+      }
+
+      .field input,
+      .field select {
+        height: 46px;
+        font-size: 13px;
+      }
+
+      .save-area {
+        display: none;
+        flex-direction: column-reverse;
+        gap: 9px;
+        margin-top: 21px;
+        padding-top: 19px;
+      }
+
+      .cancel-btn,
+      .save-btn {
+        width: 100%;
+        min-height: 44px;
       }
     }
 
-    @media (max-width: 430px) {
+    /* =====================================================
+       SMALL PHONES
+    ===================================================== */
 
-      .account-heading {
-        margin-bottom: 20px;
+    @media (max-width: 380px) {
+
+      .profile-page {
+        padding-left: 11px;
+        padding-right: 11px;
       }
 
-      .account-heading h1 {
-        font-size: 25px;
+      .page-intro h1 {
+        font-size: 26px;
       }
 
-      .profile-main-info {
-        gap: 14px;
+      .profile-glass {
+        padding: 18px;
       }
 
-      .quick-grid {
-        gap: 10px;
-      }
-
-      .quick-card {
-        padding: 14px;
-      }
-
-      .option {
-        padding: 15px;
+      .information-header,
+      .profile-form {
+        padding-left: 16px;
+        padding-right: 16px;
       }
     }
   </style>
@@ -413,241 +660,382 @@
 
 <body>
 
-  <main class="account-page">
+  <main class="profile-page">
 
-    <div class="account-heading">
-      <small>SHOPORA ACCOUNT</small>
-      <h1>My Account</h1>
-    </div>
+    <!-- BACK -->
+    <a href="../index.html" class="back-link">
+      <span>←</span>
+      <span>Back to Shop</span>
+    </a>
 
-    <div class="account-layout">
 
-      <!-- SIDEBAR -->
-      <aside class="account-sidebar">
+    <!-- PAGE TITLE -->
+    <header class="page-intro">
 
-        <div class="profile-mini">
-          <div class="profile-avatar">R</div>
+      <span class="page-intro-label">
+        MY ACCOUNT
+      </span>
 
-          <div>
-            <strong>Riyaz</strong>
-            <span>My Account</span>
+      <h1>
+        Personal Information
+      </h1>
+
+    </header>
+
+
+    <!-- MAIN -->
+    <div class="profile-layout">
+
+
+      <!-- GLASS PROFILE -->
+      <aside class="profile-glass">
+
+        <div class="profile-glass-content">
+
+          <div class="avatar">
+            R
           </div>
-        </div>
 
-        <div class="account-menu-title">MY SHOPPING</div>
+          <h2>
+            Riyaz
+          </h2>
 
-        <nav class="account-menu">
-          <a href="#">My Orders <span>›</span></a>
-          <a href="#">Track Order <span>›</span></a>
-          <a href="wishlist.html">Wishlist <span>›</span></a>
-          <a href="#">My Reviews <span>›</span></a>
-        </nav>
+          <p>
+            Manage your personal information
+            and account details.
+          </p>
 
-        <div class="account-menu-title">MY ACCOUNT</div>
+          <div class="glass-line"></div>
 
-        <nav class="account-menu">
-          <a href="#" class="active">Personal Information <span>›</span></a>
-          <a href="#">Addresses <span>›</span></a>
-          <a href="#">Payment Methods <span>›</span></a>
-          <a href="#">Coupons & Offers <span>›</span></a>
-        </nav>
+          <div class="profile-status">
+            <span class="status-dot"></span>
+            <span>Account active</span>
+          </div>
 
-        <div class="account-menu-title">SUPPORT</div>
-
-        <nav class="account-menu">
-          <a href="#">Help & Support <span>›</span></a>
-          <a href="#">Contact Us <span>›</span></a>
-        </nav>
-
-        <div class="logout">
-          <a href="../index.html">Logout</a>
         </div>
 
       </aside>
 
 
-      <!-- MAIN -->
-      <section class="account-main">
+      <!-- PERSONAL INFORMATION -->
+      <section class="information-card">
 
-        <!-- PROFILE -->
-        <div class="profile-card">
 
-          <div class="profile-card-top">
+        <!-- HEADER -->
+        <div class="information-header">
 
-            <div class="profile-main-info">
+          <div>
 
-              <div class="large-avatar">R</div>
+            <h2>
+              Personal Information
+            </h2>
 
-              <div>
-                <h2>Riyaz</h2>
-                <p>riyaz@example.com</p>
-                <p>+91 XXXXX XXXXX</p>
-              </div>
+            <p>
+              Keep your account details up to date.
+            </p>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="edit-btn"
+            id="editBtn">
+
+            Edit Profile
+
+          </button>
+
+        </div>
+
+
+        <!-- FORM -->
+        <form
+          class="profile-form"
+          id="profileForm">
+
+          <div class="form-grid">
+
+
+            <!-- FIRST NAME -->
+            <div class="field">
+
+              <label for="firstName">
+                First Name
+              </label>
+
+              <input
+                id="firstName"
+                type="text"
+                value="Riyaz"
+                disabled
+              >
 
             </div>
 
-            <button class="edit-btn">
-              Edit Profile
+
+            <!-- LAST NAME -->
+            <div class="field">
+
+              <label for="lastName">
+                Last Name
+              </label>
+
+              <input
+                id="lastName"
+                type="text"
+                placeholder="Enter last name"
+                disabled
+              >
+
+            </div>
+
+
+            <!-- EMAIL -->
+            <div class="field">
+
+              <label for="email">
+                Email Address
+              </label>
+
+              <input
+                id="email"
+                type="email"
+                value="riyaz@example.com"
+                disabled
+              >
+
+            </div>
+
+
+            <!-- MOBILE -->
+            <div class="field">
+
+              <label for="mobile">
+                Mobile Number
+              </label>
+
+              <input
+                id="mobile"
+                type="tel"
+                value="+91 XXXXX XXXXX"
+                disabled
+              >
+
+            </div>
+
+
+            <!-- DOB -->
+            <div class="field">
+
+              <label for="dob">
+                Date of Birth
+              </label>
+
+              <input
+                id="dob"
+                type="date"
+                disabled
+              >
+
+            </div>
+
+
+            <!-- GENDER -->
+            <div class="field">
+
+              <label for="gender">
+                Gender
+              </label>
+
+              <select
+                id="gender"
+                disabled
+              >
+
+                <option value="">
+                  Select
+                </option>
+
+                <option value="Male">
+                  Male
+                </option>
+
+                <option value="Female">
+                  Female
+                </option>
+
+                <option value="Other">
+                  Other
+                </option>
+
+              </select>
+
+            </div>
+
+
+          </div>
+
+
+          <!-- SAVE BUTTONS -->
+          <div
+            class="save-area"
+            id="saveArea">
+
+            <button
+              type="button"
+              class="cancel-btn"
+              id="cancelBtn">
+
+              Cancel
+
+            </button>
+
+            <button
+              type="submit"
+              class="save-btn">
+
+              Save Changes
+
             </button>
 
           </div>
 
-        </div>
 
+          <!-- SAVED MESSAGE -->
+          <div
+            class="saved-message"
+            id="savedMessage">
 
-        <!-- QUICK ACTIONS -->
-
-        <div>
-
-          <div class="section-label">
-            QUICK ACCESS
-          </div>
-
-          <div class="quick-grid">
-
-            <a href="#" class="quick-card">
-              <div class="quick-icon">📦</div>
-              <strong>My Orders</strong>
-              <span>View your orders</span>
-            </a>
-
-            <a href="#" class="quick-card">
-              <div class="quick-icon">🚚</div>
-              <strong>Track Order</strong>
-              <span>Track your delivery</span>
-            </a>
-
-            <a href="wishlist.html" class="quick-card">
-              <div class="quick-icon">♡</div>
-              <strong>Wishlist</strong>
-              <span>Saved products</span>
-            </a>
-
-            <a href="#" class="quick-card">
-              <div class="quick-icon">★</div>
-              <strong>My Reviews</strong>
-              <span>Your product reviews</span>
-            </a>
+            ✓ Your personal information has been saved.
 
           </div>
 
-        </div>
-
-
-        <!-- ACCOUNT OPTIONS -->
-
-        <div>
-
-          <div class="section-label">
-            ACCOUNT SETTINGS
-          </div>
-
-          <div class="options-card">
-
-            <a href="#" class="option">
-
-              <div class="option-left">
-                <div class="option-icon">👤</div>
-
-                <div>
-                  <strong>Personal Information</strong>
-                  <small>Name, email and mobile number</small>
-                </div>
-              </div>
-
-              <span class="arrow">›</span>
-
-            </a>
-
-
-            <a href="#" class="option">
-
-              <div class="option-left">
-                <div class="option-icon">⌖</div>
-
-                <div>
-                  <strong>My Addresses</strong>
-                  <small>Manage delivery addresses</small>
-                </div>
-              </div>
-
-              <span class="arrow">›</span>
-
-            </a>
-
-
-            <a href="#" class="option">
-
-              <div class="option-left">
-                <div class="option-icon">▣</div>
-
-                <div>
-                  <strong>Payment Methods</strong>
-                  <small>Manage saved payment options</small>
-                </div>
-              </div>
-
-              <span class="arrow">›</span>
-
-            </a>
-
-
-            <a href="#" class="option">
-
-              <div class="option-left">
-                <div class="option-icon">%</div>
-
-                <div>
-                  <strong>Coupons & Offers</strong>
-                  <small>View available discounts</small>
-                </div>
-              </div>
-
-              <span class="arrow">›</span>
-
-            </a>
-
-
-            <a href="#" class="option">
-
-              <div class="option-left">
-                <div class="option-icon">?</div>
-
-                <div>
-                  <strong>Help & Support</strong>
-                  <small>Get help with your order</small>
-                </div>
-              </div>
-
-              <span class="arrow">›</span>
-
-            </a>
-
-
-            <a href="#" class="option">
-
-              <div class="option-left">
-                <div class="option-icon">⚙</div>
-
-                <div>
-                  <strong>Settings</strong>
-                  <small>Manage your account preferences</small>
-                </div>
-              </div>
-
-              <span class="arrow">›</span>
-
-            </a>
-
-          </div>
-
-        </div>
+        </form>
 
       </section>
 
     </div>
 
   </main>
+
+
+  <script>
+
+    const editBtn =
+      document.getElementById("editBtn");
+
+    const cancelBtn =
+      document.getElementById("cancelBtn");
+
+    const saveArea =
+      document.getElementById("saveArea");
+
+    const savedMessage =
+      document.getElementById("savedMessage");
+
+    const form =
+      document.getElementById("profileForm");
+
+
+    const fields = [
+      document.getElementById("firstName"),
+      document.getElementById("lastName"),
+      document.getElementById("email"),
+      document.getElementById("mobile"),
+      document.getElementById("dob"),
+      document.getElementById("gender")
+    ];
+
+
+    /* SAVE ORIGINAL VALUES */
+
+    let originalValues = {};
+
+    function storeOriginalValues() {
+
+      originalValues = {};
+
+      fields.forEach(field => {
+        originalValues[field.id] = field.value;
+      });
+
+    }
+
+
+    /* ENABLE EDIT */
+
+    editBtn.addEventListener("click", () => {
+
+      storeOriginalValues();
+
+      fields.forEach(field => {
+        field.disabled = false;
+      });
+
+      editBtn.style.display = "none";
+
+      saveArea.style.display = "flex";
+
+      savedMessage.style.display = "none";
+
+    });
+
+
+    /* CANCEL */
+
+    cancelBtn.addEventListener("click", () => {
+
+      fields.forEach(field => {
+
+        if (
+          Object.prototype.hasOwnProperty.call(
+            originalValues,
+            field.id
+          )
+        ) {
+          field.value =
+            originalValues[field.id];
+        }
+
+        field.disabled = true;
+
+      });
+
+      saveArea.style.display = "none";
+
+      editBtn.style.display = "block";
+
+      savedMessage.style.display = "none";
+
+    });
+
+
+    /* SAVE */
+
+    form.addEventListener("submit", event => {
+
+      event.preventDefault();
+
+      fields.forEach(field => {
+        field.disabled = true;
+      });
+
+      saveArea.style.display = "none";
+
+      editBtn.style.display = "block";
+
+      savedMessage.style.display = "block";
+
+      setTimeout(() => {
+
+        savedMessage.style.display = "none";
+
+      }, 3500);
+
+    });
+
+  </script>
 
 </body>
 </html>
